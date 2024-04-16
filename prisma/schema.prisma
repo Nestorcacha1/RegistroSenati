@@ -20,4 +20,26 @@ model Usuario{
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+   Laptops   Laptop[]
+  Objetos   Objeto[]
+}
+
+model Laptop {
+  id          Int      @id @default(autoincrement())
+  marca       String
+  numeroSerie String   @unique
+  idUsuario   Int
+  date        DateTime @default(now())
+  Usuario     Usuario  @relation(fields: [idUsuario], references: [id])
+
+}
+
+model Objeto {
+  id            Int      @id @default(autoincrement())
+  idUsuario     Int
+  name          String?
+  descripcion   String?
+  fechaRegistro DateTime @default(now())
+  Usuario       Usuario  @relation(fields: [idUsuario], references: [id])
+
 }
