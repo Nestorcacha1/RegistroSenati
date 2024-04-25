@@ -3,7 +3,7 @@ import prisma from '../../../../libs/db'
 interface Params {
 	params: { id: String }
 }
-
+//busqueda por dni
 export async function GET(request: Request, { params }: Params) {
 	try {
 		const firtsUser = await prisma.usuario.findFirst({
@@ -26,8 +26,7 @@ export async function GET(request: Request, { params }: Params) {
 
 export async function PUT(request: Request, { params }: Params) {
 	try {
-		const { nombre, apellido, carrera, dni, ncelular, updatedAt } =
-			await request.json()
+		const { nombre, apellido, carrera, dni, updatedAt } = await request.json()
 		const UpdateUser = await prisma.usuario.update({
 			where: {
 				id: Number(params.id),

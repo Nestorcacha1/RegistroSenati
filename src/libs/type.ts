@@ -12,6 +12,7 @@ export interface Objeto {
 }
 
 export interface User {
+	updatedAt: string | number | Date
 	id: number
 	idUsuario: string
 	nombre: string

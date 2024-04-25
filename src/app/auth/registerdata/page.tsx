@@ -36,9 +36,9 @@ function RegisterData() {
 				throw new Error('Error al registrar el usuario')
 			}
 
-			const data = await response.json()
-			// Haz algo con los datos aquí, por ejemplo:
-			console.log(data)
+			// const data = await response.json()
+			// // Haz algo con los datos aquí, por ejemplo:
+			// console.log(data)
 			setNombre('')
 			setApellido('')
 			setDni('')

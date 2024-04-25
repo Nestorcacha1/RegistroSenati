@@ -16,7 +16,6 @@ export async function PUT(request: Request, params: Params) {
 				marca,
 				numeroSerie,
 				color,
-				date: new Date(),
 			},
 		})
 		return NextResponse.json(updateLaptop)

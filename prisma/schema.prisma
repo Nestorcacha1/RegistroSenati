@@ -42,7 +42,7 @@ model Laptop {
   numeroSerie String   
   idUsuario   Int
   color       String
-  Usuario     Usuario  @relation(fields: [idUsuario], references: [id])
+  Usuario     Usuario  @relation(fields: [idUsuario], references: [id], onDelete: Cascade)
 
 }
 
@@ -51,5 +51,5 @@ model Objeto {
   idUsuario     Int
   nombre         String
   descripcion   String
-  Usuario       Usuario  @relation(fields: [idUsuario], references: [id])
+  Usuario       Usuario  @relation(fields: [idUsuario], references: [id], onDelete: Cascade)
 }

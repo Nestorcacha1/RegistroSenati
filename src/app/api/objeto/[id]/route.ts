@@ -5,7 +5,6 @@ interface Params {
 	params: { id: string }
 }
 export async function PUT(request: Request, params: Params) {
-	console.log(params.params.id)
 	try {
 		const { nombre, descripcion } = await request.json()
 		const updateObjeto = await prisma.objeto.updateMany({
