@@ -25,7 +25,6 @@ export async function POST(request: Request) {
 				apellido,
 				carrera,
 				dni,
-
 				Laptops: {
 					create: laptops,
 				},
