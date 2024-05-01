@@ -2,11 +2,9 @@
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Title from '@/components/Title'
-import React, { useContext, useEffect, useState } from 'react'
-import { redirect } from 'next/navigation'
-import { toast } from 'react-hot-toast'
 import { UserContext } from '@/context/UserContext'
-import { se } from 'date-fns/locale'
+import { redirect } from 'next/navigation'
+import { useContext, useState } from 'react'
 
 function RegisterData() {
 	const [nombre, setNombre] = useState<string>('')
@@ -32,6 +30,7 @@ function RegisterData() {
 		setObjeto('')
 		setDescripcion('')
 	}
+
 	async function handleRegistrar() {
 		await AddUsers({
 			nombre,
@@ -42,6 +41,7 @@ function RegisterData() {
 			objetos: [{ nombre: objeto, descripcion }],
 		})
 		setRedirectTo(true)
+
 		limpiarCampos()
 	}
 
@@ -52,7 +52,7 @@ function RegisterData() {
 	return (
 		<div className=' shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-1/2 h-auto mx-auto mt-8'>
 			<Title name='Registro de Usuarios y Laptop' />
-			<div className=''>
+			<div className='flex flex-col'>
 				<Input
 					required
 					type='text'
@@ -76,7 +76,7 @@ function RegisterData() {
 				/>
 
 				<select
-					className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2'
+					className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2 bg-slate-50'
 					value={carrera}
 					onChange={e => setCarrera(e.target.value)}
 					required

@@ -3,7 +3,10 @@ import prisma from '../../../../libs/db'
 interface Params {
 	params: { id: String }
 }
-//busqueda por dni
+interface Paramss {
+	params: { dni: string }
+}
+
 export async function GET(request: Request, { params }: Params) {
 	try {
 		const firtsUser = await prisma.usuario.findFirst({

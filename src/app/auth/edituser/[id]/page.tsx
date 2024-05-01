@@ -1,11 +1,10 @@
 'use client'
-import Input from '@/components/Input'
-import React, { useContext, useEffect, useState } from 'react'
-import { redirect, useParams } from 'next/navigation'
-import Title from '@/components/Title'
 import Button from '@/components/Button'
+import Input from '@/components/Input'
+import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
-import { User } from '@/libs/type'
+import { redirect, useParams } from 'next/navigation'
+import { useContext, useEffect, useState } from 'react'
 
 function EditPage() {
 	const { id } = useParams<{ id: string }>()
@@ -57,9 +56,9 @@ function EditPage() {
 	}
 
 	return (
-		<div className='mt-8 w-full md:w-1/2 mx-auto'>
+		<div className='shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-1/2 h-auto mx-auto mt-8 '>
 			<Title name='Actualiza Tus Datos' />
-			<div className='mt-8 space-y-4 p-4 border border-gray-300 shadow-lg rounded'>
+			<div className='flex flex-col'>
 				<label className='font-semibold text-sm'>Nombre</label>
 				<Input
 					required={false}
@@ -72,7 +71,7 @@ function EditPage() {
 				<Input
 					required={false}
 					type='text'
-					placeholder='apellido'
+					placeholder='Apellido'
 					onChange={e => setApellido(e.target.value)}
 					value={apellido}
 				/>
@@ -80,23 +79,45 @@ function EditPage() {
 				<Input
 					required={false}
 					type='text'
-					placeholder='dni'
+					placeholder='DNI'
 					onChange={e => setDni(e.target.value)}
 					value={dni}
 				/>
 				<label className='font-semibold text-sm'>Carrera</label>
-				<Input
-					required={false}
-					type='text'
-					placeholder='carrera'
-					onChange={e => setCarrera(e.target.value)}
+				<select
+					className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2 bg-slate-50 '
 					value={carrera}
-				/>
+					onChange={e => setCarrera(e.target.value)}
+					required
+				>
+					<option value=''>Selecciona una carrera</option>
+					<option value='Administración Industrial'>
+						Administración Industrial
+					</option>
+					<option value='Seguridad Industrial y Prevención de Riesgos'>
+						Seguridad Industrial y Prevención de Riesgos
+					</option>
+					<option value='Mecánico de Automotores Diesel'>
+						Mecánico de Automotores Diesel
+					</option>
+					<option value='Mecánico de Mantenimiento'>
+						Mecánico de Mantenimiento
+					</option>
+					<option value='Diseño Gráfico Digital'>Diseño Gráfico Digital</option>
+					<option value='Mecánico Automotriz'>Mecánico Automotriz</option>
+					<option value='Ingenieria de Software con Inteligencia Artificial'>
+						Ingenieria de Software con Inteligencia Artificial
+					</option>
+					<option value='Administración de Empresas'>
+						Administración de Empresas
+					</option>
+					<option value='DE SOPORTE DE TI '>DE SOPORTE DE TI</option>
+				</select>
 				<label className='font-semibold text-sm'>Marca</label>
 				<Input
 					required={false}
 					type='text'
-					placeholder='marca'
+					placeholder='Marca'
 					onChange={e => setMarca(e.target.value)}
 					value={marca}
 				/>
@@ -104,7 +125,7 @@ function EditPage() {
 				<Input
 					required={false}
 					type='text'
-					placeholder='color'
+					placeholder='Color'
 					onChange={e => setColor(e.target.value)}
 					value={color}
 				/>
@@ -120,7 +141,7 @@ function EditPage() {
 				<Input
 					required={false}
 					type='text'
-					placeholder='objeto'
+					placeholder='Objeto'
 					onChange={e => setObjeto(e.target.value)}
 					value={objeto}
 				/>
@@ -128,7 +149,7 @@ function EditPage() {
 				<Input
 					required={false}
 					type='text'
-					placeholder='descripcion'
+					placeholder='Descripcion del objeto'
 					onChange={e => setDescripcion(e.target.value)}
 					value={descripcion}
 				/>

@@ -1,9 +1,11 @@
 import { UserContext } from '@/context/UserContext'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { format } from 'date-fns'
 import DeletIcon from './icon/DeletIcon'
 import EditIcon from './icon/EditIcon'
+import Time from './Time'
+import SearchDni from './SearchDni'
 
 function Dashboard() {
 	const { users, LoadUsers, DeleteUser } = useContext(UserContext)
@@ -37,6 +39,7 @@ function Dashboard() {
 			<button className='w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-8 ml-5'>
 				<a href='/auth/registerdata'>Registrar</a>
 			</button>
+			<SearchDni />
 			<section className='space-x-4 flex overflow-x-auto'>
 				<table className='table-auto w-full'>
 					<thead>
@@ -56,28 +59,31 @@ function Dashboard() {
 							<th>Eliminar</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						{users.map(user => (
 							<tr key={user.id}>
-								<td>{user.createdAt}</td>
-								<td>{user.updatedAt}</td>
+								<td>{<Time time={user.createdAt} key={user.id} />}</td>
+								<td>{<Time time={user.updatedAt} key={user.id} />}</td>
 								<td>{user.nombre}</td>
 								<td>{user.apellido}</td>
 								<td>{user.dni}</td>
 								<td>{user.carrera}</td>
-								{user.Laptops.map((laptop, index) => (
-									<React.Fragment key={index}>
-										<td>{laptop.marca || 'Ninguno'}</td>
-										<td>{laptop.numeroSerie || 'Ninguno'}</td>
-										<td>{laptop.color || 'Ninguno'}</td>
-									</React.Fragment>
-								))}
-								{user.Objetos.map((objeto, index) => (
-									<React.Fragment key={index}>
-										<td>{objeto.nombre || 'Ninguno'}</td>
-										<td>{objeto.descripcion || 'Ninguno'}</td>
-									</React.Fragment>
-								))}
+								{user.Laptops &&
+									user.Laptops.map((laptop, index) => (
+										<React.Fragment key={index}>
+											<td>{laptop.marca || 'Ninguno'}</td>
+											<td>{laptop.numeroSerie || 'Ninguno'}</td>
+											<td>{laptop.color || 'Ninguno'}</td>
+										</React.Fragment>
+									))}
+								{user.Objetos &&
+									user.Objetos.map((objeto, index) => (
+										<React.Fragment key={index}>
+											<td>{objeto.nombre || 'Ninguno'}</td>
+											<td>{objeto.descripcion || 'Ninguno'}</td>
+										</React.Fragment>
+									))}
 								<td>
 									<button className='bg-sky-300'>
 										<a href={`/auth/edituser/${user.id}`}>

@@ -5,7 +5,7 @@ import {
 	User,
 	UserRegister,
 	UserUpdate,
-} from '@/libs/type'
+} from '@/interface/type'
 import { createContext, useState } from 'react'
 
 export const UserContext = createContext<{
@@ -16,6 +16,7 @@ export const UserContext = createContext<{
 	EditUser: (user: UserUpdate, id: string) => Promise<void>
 	EditLaptop: (user: LaptopUpdate, id: string) => Promise<void>
 	EditObjeto: (user: ObjetoUpdate, id: string) => Promise<void>
+	SearchDni: (dni: string) => Promise<User | null>
 }>({
 	users: [],
 	LoadUsers: async () => {},
@@ -24,6 +25,9 @@ export const UserContext = createContext<{
 	EditUser: async (user: UserUpdate, id: string) => {},
 	EditLaptop: async (user: LaptopUpdate, id: string) => {},
 	EditObjeto: async (user: ObjetoUpdate, id: string) => {},
+	SearchDni: async (dni: string): Promise<User | null> => {
+		return null
+	},
 })
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -88,6 +92,24 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		})
 	}
 
+	async function SearchDni(dni: string) {
+		if (!dni) {
+			throw new Error('DNI is required')
+		}
+
+		try {
+			const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`)
+			}
+			const data = await response.json()
+			return data
+		} catch (error) {
+			console.error('Error fetching user:', error)
+			throw error
+		}
+	}
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -98,6 +120,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				EditUser,
 				EditLaptop,
 				EditObjeto,
+				SearchDni,
 			}}
 		>
 			{children}
