@@ -11,11 +11,13 @@ function SearchDNI() {
 	async function BuscarDni() {
 		SearchDni(dni)
 		const user = await SearchDni(dni)
+		console.log(user)
 		if (user) {
 			setFound(false)
 		} else {
 			setFound(true)
 		}
+		setDni('')
 	}
 	return (
 		<>
@@ -23,9 +25,7 @@ function SearchDNI() {
 				type='search'
 				placeholder='Ingrese su DNI'
 				value={dni}
-				className={`border-2 p-2 rounded-md mt-8 ${
-					found ? 'bg-purple-500' : 'border-sky-600'
-				}`}
+				className='mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300'
 				onChange={e => setDni(e.target.value)}
 			/>
 			<Button name='Buscar' onClick={BuscarDni} />

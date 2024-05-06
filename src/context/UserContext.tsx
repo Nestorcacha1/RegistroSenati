@@ -10,28 +10,31 @@ import { createContext, useState } from 'react'
 
 export const UserContext = createContext<{
 	users: User[]
+	dni: String
 	LoadUsers: () => Promise<void>
 	AddUsers: (user: UserRegister) => Promise<void>
 	DeleteUser: (id: string) => Promise<void>
 	EditUser: (user: UserUpdate, id: string) => Promise<void>
 	EditLaptop: (user: LaptopUpdate, id: string) => Promise<void>
 	EditObjeto: (user: ObjetoUpdate, id: string) => Promise<void>
-	SearchDni: (dni: string) => Promise<User | null>
+	SearchDni: (dni: string) => Promise<User | String>
 }>({
 	users: [],
+	dni: '',
 	LoadUsers: async () => {},
 	AddUsers: async (user: UserRegister) => {},
 	DeleteUser: async (id: string) => {},
 	EditUser: async (user: UserUpdate, id: string) => {},
 	EditLaptop: async (user: LaptopUpdate, id: string) => {},
 	EditObjeto: async (user: ObjetoUpdate, id: string) => {},
-	SearchDni: async (dni: string): Promise<User | null> => {
-		return null
+	SearchDni: async (dni: string): Promise<User | String> => {
+		return dni
 	},
 })
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [users, setUsers] = useState<User[]>([])
+	const [dni, setDni] = useState<string | null>(null)
 	async function LoadUsers() {
 		const response = await fetch('/api/user')
 		const data = await response.json()
@@ -92,7 +95,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		})
 	}
 
-	async function SearchDni(dni: string) {
+	async function SearchDni(dni: string): Promise<User | String> {
 		if (!dni) {
 			throw new Error('DNI is required')
 		}
@@ -103,7 +106,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				throw new Error(`HTTP error! status: ${response.status}`)
 			}
 			const data = await response.json()
-			return data
+			setDni(data.dni)
+			return data // Asegúrate de devolver los datos aquí
 		} catch (error) {
 			console.error('Error fetching user:', error)
 			throw error
@@ -121,6 +125,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				EditLaptop,
 				EditObjeto,
 				SearchDni,
+				dni: dni || '',
 			}}
 		>
 			{children}

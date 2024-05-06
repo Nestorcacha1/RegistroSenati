@@ -8,7 +8,7 @@ import Time from './Time'
 import SearchDni from './SearchDni'
 
 function Dashboard() {
-	const { users, LoadUsers, DeleteUser } = useContext(UserContext)
+	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
 
 	useEffect(() => {
 		LoadUsers()
@@ -62,7 +62,10 @@ function Dashboard() {
 
 					<tbody>
 						{users.map(user => (
-							<tr key={user.id}>
+							<tr
+								key={user.id}
+								className={user.dni == dni ? 'bg-green-400 font-semibold ' : ''}
+							>
 								<td>{<Time time={user.createdAt} key={user.id} />}</td>
 								<td>{<Time time={user.updatedAt} key={user.id} />}</td>
 								<td>{user.nombre}</td>
