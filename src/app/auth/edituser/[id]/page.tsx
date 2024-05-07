@@ -5,6 +5,7 @@ import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 function EditPage() {
 	const { id } = useParams<{ id: string }>()
@@ -50,6 +51,11 @@ function EditPage() {
 		EditLaptop({ marca, color, numeroSerie }, id)
 		EditObjeto({ nombre: objeto, descripcion }, id)
 		setRedirectTo(true)
+		if (users) {
+			toast.success('Usuario actualizado')
+		} else {
+			toast.error('No se pudo actualizar el usuario')
+		}
 	}
 	if (redirectTo) {
 		return redirect('/')

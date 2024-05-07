@@ -5,6 +5,7 @@ import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { redirect } from 'next/navigation'
 import { useContext, useState } from 'react'
+import toast from 'react-hot-toast'
 
 function RegisterData() {
 	const [nombre, setNombre] = useState<string>('')
@@ -43,6 +44,9 @@ function RegisterData() {
 		setRedirectTo(true)
 
 		limpiarCampos()
+		toast.success('Registro exitoso')
+		toast.error('Error al registrar')
+		toast.loading('Cargando...')
 	}
 
 	if (redirecTo) {

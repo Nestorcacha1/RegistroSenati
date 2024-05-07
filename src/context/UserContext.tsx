@@ -96,22 +96,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function SearchDni(dni: string): Promise<User | String> {
-		if (!dni) {
-			throw new Error('DNI is required')
+		const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
+		const data = await response.json()
+		if (data.message === null) {
+			return data.message
 		}
-
-		try {
-			const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`)
-			}
-			const data = await response.json()
-			setDni(data.dni)
-			return data // Asegúrate de devolver los datos aquí
-		} catch (error) {
-			console.error('Error fetching user:', error)
-			throw error
-		}
+		setDni(data.dni)
+		return data // Asegúrate de devolver los datos aquí
 	}
 
 	return (
