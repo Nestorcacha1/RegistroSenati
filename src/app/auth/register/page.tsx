@@ -3,14 +3,30 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Image from 'next/image'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 function RegisterPage() {
 	const [name, setName] = useState('')
 	const [lastName, setLastName] = useState('')
-	const [dni, setDni] = useState('')
 	const [email, setEmail] = useState('')
-	function handleRegister() {
-		console.log('Register')
+	const [password, setPassword] = useState('')
+	async function handleRegister() {
+		const admin = await fetch('/api/admin', {
+			method: 'POST',
+			body: JSON.stringify({
+				email,
+				password,
+				nombre: name,
+				apellido: lastName,
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		if (!admin.ok) {
+			return toast.error('Error al registrar usuario')
+		}
+		toast.success('Usuario registrado')
 	}
 	return (
 		<div className='flex items-center justify-center h-screen bg-gray-100'>
@@ -40,12 +56,12 @@ function RegisterPage() {
 						required
 					/>
 					<label className='block mb-2 text-sm font-bold text-gray-700'>
-						DNI
+						Password
 					</label>
 					<Input
 						type='text'
-						value={dni}
-						onChange={e => setDni(e.target.value)}
+						value={password}
+						onChange={e => setPassword(e.target.value)}
 						placeholder=''
 						required
 					/>

@@ -50,3 +50,12 @@ export interface ObjetoUpdate {
 	nombre: string
 	descripcion: string
 }
+
+export interface Admin {
+	id: number
+	email: string
+	password: string
+	nombre: string
+	apellido: string
+	isAdmin: boolean
+}

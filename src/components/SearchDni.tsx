@@ -26,7 +26,7 @@ function SearchDNI() {
 				type='search'
 				placeholder='Ingrese su DNI'
 				value={useDni}
-				className='mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300'
+				className='mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300 mr-3'
 				onChange={e => setDni(e.target.value)}
 			/>
 			<Button name='Buscar' onClick={BuscarDni} />

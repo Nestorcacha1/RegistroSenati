@@ -35,11 +35,15 @@ function Dashboard() {
 				Fecha
 				<span className='ml-16'>{fechaActual()}</span>
 			</div>
+			<div className='flex justify-between'>
+				<button className='w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-8 ml-5'>
+					<a href='/auth/registerdata'>Registrar</a>
+				</button>
+				<span className='mr-8'>
+					<SearchDni />
+				</span>
+			</div>
 
-			<button className='w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-8 ml-5'>
-				<a href='/auth/registerdata'>Registrar</a>
-			</button>
-			<SearchDni />
 			<section className='space-x-4 flex overflow-x-auto'>
 				<table className='table-auto w-full'>
 					<thead>

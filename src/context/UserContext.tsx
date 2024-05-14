@@ -1,5 +1,6 @@
 'use client'
 import {
+	Admin,
 	LaptopUpdate,
 	ObjetoUpdate,
 	User,
@@ -11,7 +12,9 @@ import { createContext, useState } from 'react'
 export const UserContext = createContext<{
 	users: User[]
 	dni: String
+	user: Admin[]
 	LoadUsers: () => Promise<void>
+	LoadSuperUser: () => Promise<void>
 	AddUsers: (user: UserRegister) => Promise<void>
 	DeleteUser: (id: string) => Promise<void>
 	EditUser: (user: UserUpdate, id: string) => Promise<void>
@@ -21,7 +24,9 @@ export const UserContext = createContext<{
 }>({
 	users: [],
 	dni: '',
+	user: [],
 	LoadUsers: async () => {},
+	LoadSuperUser: async () => {},
 	AddUsers: async (user: UserRegister) => {},
 	DeleteUser: async (id: string) => {},
 	EditUser: async (user: UserUpdate, id: string) => {},
@@ -35,10 +40,16 @@ export const UserContext = createContext<{
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [users, setUsers] = useState<User[]>([])
 	const [dni, setDni] = useState<string | null>(null)
+	const [user, setUser] = useState<Admin[]>([])
 	async function LoadUsers() {
 		const response = await fetch('/api/user')
 		const data = await response.json()
 		setUsers(data)
+	}
+	async function LoadSuperUser() {
+		const response = await fetch('/api/admin')
+		const data = await response.json()
+		setUser(data)
 	}
 
 	async function AddUsers(user: UserRegister) {
@@ -109,6 +120,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		<UserContext.Provider
 			value={{
 				users,
+				user,
 				LoadUsers,
 				AddUsers,
 				DeleteUser,
@@ -116,6 +128,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				EditLaptop,
 				EditObjeto,
 				SearchDni,
+				LoadSuperUser,
 				dni: dni || '',
 			}}
 		>
