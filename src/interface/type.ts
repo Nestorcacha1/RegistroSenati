@@ -5,6 +5,15 @@ export interface Laptop {
 	color: string
 }
 
+export interface admin {
+	email: string
+	nombre: string
+	apellido: string
+	isAdmin: boolean
+	createdAt: Date
+	updatedAt: Date
+}
+
 export interface Objeto {
 	id: number
 	nombre: string
@@ -51,11 +60,11 @@ export interface ObjetoUpdate {
 	descripcion: string
 }
 
-export interface Admin {
-	id: number
-	email: string
-	password: string
-	nombre: string
-	apellido: string
-	isAdmin: boolean
-}
+// export interface Admin {
+// 	id: number
+// 	email: string
+// 	password: string
+// 	nombre: string
+// 	apellido: string
+// 	isAdmin: boolean
+// }

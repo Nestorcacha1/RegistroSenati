@@ -65,3 +65,6 @@ export async function DELETE(request: Request, { params }: Params) {
 		return NextResponse.json(error)
 	}
 }
+export function PACTH(request: Request, { params }: Params) {
+	return NextResponse.json({ message: 'PACTH' })
+}

@@ -33,20 +33,23 @@ function RegisterData() {
 	}
 
 	async function handleRegistrar() {
-		await AddUsers({
-			nombre,
-			apellido,
-			dni,
-			carrera,
-			laptops: [{ marca, numeroSerie, color }],
-			objetos: [{ nombre: objeto, descripcion }],
-		})
-		setRedirectTo(true)
+		try {
+			await AddUsers({
+				nombre,
+				apellido,
+				dni,
+				carrera,
+				laptops: [{ marca, numeroSerie, color }],
+				objetos: [{ nombre: objeto, descripcion }],
+			})
+			setRedirectTo(true)
 
-		limpiarCampos()
-		toast.success('Registro exitoso')
-		toast.error('Error al registrar')
-		toast.loading('Cargando...')
+			limpiarCampos()
+			toast.success('Registro exitoso')
+		} catch (error) {
+			toast.error('Error al registrar')
+			toast.loading('Cargando...')
+		}
 	}
 
 	if (redirecTo) {

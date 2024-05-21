@@ -65,49 +65,59 @@ function Dashboard() {
 					</thead>
 
 					<tbody>
-						{users.map(user => (
-							<tr
-								key={user.id}
-								className={user.dni == dni ? 'bg-green-400 font-semibold ' : ''}
-							>
-								<td>{<Time time={user.createdAt} key={user.id} />}</td>
-								<td>{<Time time={user.updatedAt} key={user.id} />}</td>
-								<td>{user.nombre}</td>
-								<td>{user.apellido}</td>
-								<td>{user.dni}</td>
-								<td>{user.carrera}</td>
-								{user.Laptops &&
-									user.Laptops.map((laptop, index) => (
-										<React.Fragment key={index}>
-											<td>{laptop.marca || 'Ninguno'}</td>
-											<td>{laptop.numeroSerie || 'Ninguno'}</td>
-											<td>{laptop.color || 'Ninguno'}</td>
-										</React.Fragment>
-									))}
-								{user.Objetos &&
-									user.Objetos.map((objeto, index) => (
-										<React.Fragment key={index}>
-											<td>{objeto.nombre || 'Ninguno'}</td>
-											<td>{objeto.descripcion || 'Ninguno'}</td>
-										</React.Fragment>
-									))}
-								<td>
-									<button className='bg-sky-300'>
-										<a href={`/auth/edituser/${user.id}`}>
-											<EditIcon />
-										</a>
-									</button>
-								</td>
-								<td>
-									<button
-										className='bg-red-600'
-										onClick={() => handleDeleteUser(user.id.toString())}
-									>
-										<DeletIcon />
-									</button>
+						{users.length > 0 ? (
+							users.map(user => (
+								<tr
+									key={user.id}
+									className={
+										user.dni == dni ? 'bg-green-400 font-semibold ' : ''
+									}
+								>
+									<td>{<Time time={user.createdAt} key={user.id} />}</td>
+									<td>{<Time time={user.updatedAt} key={user.id} />}</td>
+									<td>{user.nombre}</td>
+									<td>{user.apellido}</td>
+									<td>{user.dni}</td>
+									<td>{user.carrera}</td>
+									{user.Laptops &&
+										user.Laptops.map(laptop => (
+											<React.Fragment key={laptop.id}>
+												<td>{laptop.marca || 'Ninguno'}</td>
+												<td>{laptop.numeroSerie || 'Ninguno'}</td>
+												<td>{laptop.color || 'Ninguno'}</td>
+											</React.Fragment>
+										))}
+									{user.Objetos &&
+										user.Objetos.map(objeto => (
+											<React.Fragment key={objeto.id}>
+												<td>{objeto.nombre || 'Ninguno'}</td>
+												<td>{objeto.descripcion || 'Ninguno'}</td>
+											</React.Fragment>
+										))}
+									<td>
+										<button className='bg-sky-200 w-8 h-8 rounded-lg p-1'>
+											<a href={`/auth/edituser/${user.id}`}>
+												<EditIcon />
+											</a>
+										</button>
+									</td>
+									<td>
+										<button
+											className='bg-red-600 w-8 h-8 rounded-lg p-1'
+											onClick={() => handleDeleteUser(user.id.toString())}
+										>
+											<DeletIcon />
+										</button>
+									</td>
+								</tr>
+							))
+						) : (
+							<tr>
+								<td colSpan={13} className='text-center text-red-500'>
+									No hay registros o error en la base de datos
 								</td>
 							</tr>
-						))}
+						)}
 					</tbody>
 				</table>
 			</section>
