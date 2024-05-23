@@ -27,7 +27,7 @@ function Perfil() {
 							/>
 						</span>
 						<div className='flex items-center space-x-2'>
-							<label className='font-semibold'>Nombre y Apellidos:</label>
+							<label className='font-semibold'>Nombres y Apellidos:</label>
 							<p className='font-normal'>{session?.user?.name}</p>
 						</div>
 						<div className='flex items-center space-x-2'>

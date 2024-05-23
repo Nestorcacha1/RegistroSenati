@@ -1,15 +1,21 @@
 import { UserContext } from '@/context/UserContext'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { format } from 'date-fns'
+import SearchDni from './SearchDni'
+import Time from './Time'
 import DeletIcon from './icon/DeletIcon'
 import EditIcon from './icon/EditIcon'
-import Time from './Time'
-import SearchDni from './SearchDni'
 
 function Dashboard() {
 	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
+	const currentDate = new Date()
+	currentDate.setHours(0, 0, 0, 0) // set the time to 00:00:00
 
+	const usersToday = users.filter(user => {
+		const userCreationDate = new Date(user.createdAt)
+		userCreationDate.setHours(0, 0, 0, 0) // set the time to 00:00:00
+		return userCreationDate.getTime() === currentDate.getTime()
+	})
 	useEffect(() => {
 		LoadUsers()
 	}, [])
@@ -66,7 +72,7 @@ function Dashboard() {
 
 					<tbody>
 						{users.length > 0 ? (
-							users.map(user => (
+							usersToday.map(user => (
 								<tr
 									key={user.id}
 									className={
