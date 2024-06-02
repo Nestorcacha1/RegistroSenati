@@ -1,9 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 import puppeteer from 'puppeteer'
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
 	// Manejar solicitud POST
-	const { html } = req.body
+	const { html } = await req.json()
 
 	try {
 		// Lanzar una nueva instancia del navegador
@@ -14,17 +15,25 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 		await page.setContent(html, { waitUntil: 'domcontentloaded' })
 
 		// Generar el PDF
-		const pdf = await page.pdf({ format: 'A4' })
+		const pdfBuffer = await page.pdf({ format: 'A4' })
 
 		// Cerrar el navegador
 		await browser.close()
 
 		// Enviar el PDF como respuesta
-		res.setHeader('Content-Type', 'application/pdf')
-		res.setHeader('Content-Disposition', 'attachment; filename=output.pdf')
-		res.status(200).send(pdf)
+		const pdfResponse = new NextResponse(pdfBuffer, {
+			headers: {
+				'Content-Type': 'application/pdf',
+				'Content-Disposition': 'attachment; filename=output.pdf',
+			},
+		})
+
+		return pdfResponse
 	} catch (error) {
 		console.error('Error al generar el PDF:', error)
-		res.status(500).json({ error: 'Error al generar el PDF' })
+		return NextResponse.json(
+			{ error: 'Error al generar el PDF' },
+			{ status: 500 }
+		)
 	}
 }

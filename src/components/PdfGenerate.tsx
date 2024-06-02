@@ -1,26 +1,44 @@
-function handleGeneratePdf() {
-	const htmlContent = document.getElementById('myDiv')?.outerHTML
+import React from 'react'
 
-	if (htmlContent) {
-		fetch('/api/generatePdf', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ html: htmlContent }),
-		})
-			.then(response => response.blob())
-			.then(blob => {
-				const url = window.URL.createObjectURL(new Blob([blob]))
-				const link = document.createElement('a')
-				link.href = url
-				link.setAttribute('download', 'output.pdf')
-				document.body.appendChild(link)
-				link.click()
-				link.parentNode?.removeChild(link)
+export default function PdfGenerate({ date }: { date: string }) {
+	async function Imprimir() {
+		try {
+			const divElement = document.getElementById(`table-${date}`)
+			if (!divElement) {
+				console.error('Div not found')
+				return
+			}
+
+			const htmlContent = divElement.outerHTML
+
+			const response = await fetch('/api/pdf', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ html: htmlContent }),
 			})
-			.catch(error => console.error('Error al generar el PDF:', error))
-	} else {
-		console.error('No se encontró el elemento con el ID "myDiv"')
+
+			if (response.ok) {
+				const pdfBlob = await response.blob()
+				const pdfUrl = URL.createObjectURL(pdfBlob)
+				window.open(pdfUrl)
+			} else {
+				console.error('Error al generar el PDF')
+			}
+		} catch (error) {
+			console.error('Error al consumir la API:', error)
+		}
 	}
+
+	return (
+		<>
+			<button
+				onClick={Imprimir}
+				className='bg-green-500 rounded-lg py-2 hover:bg-green-600 text-white font-semibold px-4'
+			>
+				Imprimir {date}
+			</button>
+		</>
+	)
 }

@@ -1,18 +1,16 @@
 'use client'
 
+import PdfGenerate from '@/components/PdfGenerate'
 import SearchDni from '@/components/SearchDni'
 import Time from '@/components/Time'
-import DeletIcon from '@/components/icon/DeletIcon'
-import EditIcon from '@/components/icon/EditIcon'
 import Lefticon from '@/components/icon/Lefticon'
 import { UserContext } from '@/context/UserContext'
 import { User } from '@/interface/type'
 import Link from 'next/link'
 import React, { useContext, useEffect } from 'react'
-import toast from 'react-hot-toast'
 
 function AllRegister() {
-	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
+	const { users, LoadUsers, dni } = useContext(UserContext)
 	const currentDate = new Date()
 	currentDate.setHours(0, 0, 0, 0)
 
@@ -37,39 +35,10 @@ function AllRegister() {
 		LoadUsers()
 	}, [])
 
-	async function handleDeleteUser(id: string) {
-		await DeleteUser(id)
-		LoadUsers()
-		toast.success('Usuario eliminado correctamente')
-	}
-
-	const handleGenerarPDF = () => {
-		const htmlContent = document.getElementById('myDiv')?.outerHTML
-
-		fetch('/api/pdf', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ html: htmlContent }),
-		})
-			.then(response => response.blob())
-			.then(blob => {
-				const url = window.URL.createObjectURL(new Blob([blob]))
-				const link = document.createElement('a')
-				link.href = url
-				link.setAttribute('download', 'output.pdf')
-				document.body.appendChild(link)
-				link.click()
-				link.parentNode?.removeChild(link)
-			})
-			.catch(error => console.error('Error al generar el PDF:', error))
-	}
-
 	return (
 		<>
-			<div className='text-center mt-10 mb-10 font-semibold'>
-				Registro De Todos Los Usuarios Registrados Por Fecha
+			<div className='text-center mt-10 mb-10 font-semibold text-3xl uppercase'>
+				Registro de todo los alumnos | SENATI
 			</div>
 			<div>
 				<div className='mt-4 ml-5 w-10 bg-slate-400 rounded-md '>
@@ -84,14 +53,17 @@ function AllRegister() {
 				</div>
 			</div>
 			{Object.entries(groupedUsers).map(([date, users]) => (
-				<section key={date} className='space-x-4 flex overflow-x-auto'>
-					<div id='myDiv'>
-						<table className='table-auto w-full mt-8'>
+				<section key={date} className=''>
+					<div className='flex items-center justify-center mt-5'>
+						<PdfGenerate date={date} />
+					</div>
+
+					<div id={`table-${date}`}>
+						<table className='table-auto w-full mt-1'>
 							<thead>
 								<tr className='bg-sky-300'>
-									<th colSpan={13} className='text-center'>
+									<th colSpan={11} className='text-center'>
 										{date}
-										<button onClick={handleGenerarPDF}>imp</button>
 									</th>
 								</tr>
 								<tr className='bg-sky-300'>
@@ -101,13 +73,11 @@ function AllRegister() {
 									<th>Apellido</th>
 									<th>DNI</th>
 									<th>Carrera</th>
-									<th>Marca </th>
+									<th>Marca</th>
 									<th>Número de Serie</th>
-									<th>Color </th>
+									<th>Color</th>
 									<th>Nombre Objeto</th>
-									<th>Descripción </th>
-									<th>Editar</th>
-									<th>Eliminar</th>
+									<th>Descripción</th>
 								</tr>
 							</thead>
 
@@ -141,21 +111,6 @@ function AllRegister() {
 														<td>{objeto.descripcion || 'Ninguno'}</td>
 													</React.Fragment>
 												))}
-											<td>
-												<button className='bg-sky-200 w-8 h-8 rounded-lg p-1'>
-													<a href={`/auth/edituser/${user.id}`}>
-														<EditIcon />
-													</a>
-												</button>
-											</td>
-											<td>
-												<button
-													className='bg-red-600 w-8 h-8 rounded-lg p-1'
-													onClick={() => handleDeleteUser(user.id.toString())}
-												>
-													<DeletIcon />
-												</button>
-											</td>
 										</tr>
 									))
 								) : (

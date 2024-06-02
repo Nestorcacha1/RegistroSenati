@@ -5,28 +5,22 @@ import SearchDni from './SearchDni'
 import Time from './Time'
 import DeletIcon from './icon/DeletIcon'
 import EditIcon from './icon/EditIcon'
+import CurrentDate from './Date'
+import Title from './Title'
 
 function Dashboard() {
 	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
 	const currentDate = new Date()
-	currentDate.setHours(0, 0, 0, 0) // set the time to 00:00:00
+	currentDate.setHours(0, 0, 0, 0)
 
 	const usersToday = users.filter(user => {
 		const userCreationDate = new Date(user.createdAt)
-		userCreationDate.setHours(0, 0, 0, 0) // set the time to 00:00:00
+		userCreationDate.setHours(0, 0, 0, 0)
 		return userCreationDate.getTime() === currentDate.getTime()
 	})
 	useEffect(() => {
 		LoadUsers()
 	}, [])
-
-	function fechaActual() {
-		let fecha = new Date()
-		let dia = fecha.getDate()
-		let mes = (fecha.getMonth() + 1).toString().padStart(2, '0')
-		let año = fecha.getFullYear()
-		return `${dia}/${mes}/${año}`
-	}
 
 	async function handleDeleteUser(id: string) {
 		await DeleteUser(id)
@@ -36,10 +30,11 @@ function Dashboard() {
 
 	return (
 		<>
-			<div className='text-center'>Registro de Usuarios</div>
 			<div className='text-center'>
-				Fecha
-				<span className='ml-16'>{fechaActual()}</span>
+				<Title name='Registro de Usuarios' />
+			</div>
+			<div className='text-center'>
+				<CurrentDate />
 			</div>
 			<div className='flex justify-between'>
 				<button className='w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-8 ml-5'>

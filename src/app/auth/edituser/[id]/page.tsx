@@ -5,9 +5,10 @@ import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
+import { User } from '@/interface/type'
 import toast from 'react-hot-toast'
 
-function EditPage() {
+function EditPage({ user }: { user: User }) {
 	const { id } = useParams<{ id: string }>()
 	const [nombre, setNombre] = useState<string>('')
 	const [apellido, setApellido] = useState<string>('')
