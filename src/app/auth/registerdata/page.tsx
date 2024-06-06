@@ -33,22 +33,34 @@ function RegisterData() {
 	}
 
 	async function handleRegistrar() {
-		try {
-			await AddUsers({
-				nombre,
-				apellido,
-				dni,
-				carrera,
-				laptops: [{ marca, numeroSerie, color }],
-				objetos: [{ nombre: objeto, descripcion }],
-			})
-			setRedirectTo(true)
+		if (
+			!nombre ||
+			!apellido ||
+			!dni ||
+			!carrera ||
+			!marca ||
+			!color ||
+			!numeroSerie
+		) {
+			toast.error('Complete todos los campos')
+		} else {
+			try {
+				await AddUsers({
+					nombre,
+					apellido,
+					dni,
+					carrera,
+					laptops: [{ marca, numeroSerie, color }],
+					objetos: [{ nombre: objeto, descripcion }],
+				})
+				setRedirectTo(true)
 
-			limpiarCampos()
-			toast.success('Registro exitoso')
-		} catch (error) {
-			toast.error('Error al registrar')
-			toast.loading('Cargando...')
+				limpiarCampos()
+				toast.success('Registro exitoso')
+			} catch (error) {
+				toast.error('Error al registrar')
+				toast.loading('Cargando...')
+			}
 		}
 	}
 
@@ -92,8 +104,8 @@ function RegisterData() {
 					<option value='Administración Industrial'>
 						Administración Industrial
 					</option>
-					<option value='Seguridad Industrial y Prevención de Riesgos'>
-						Seguridad Industrial y Prevención de Riesgos
+					<option value='Seguridad Industrial y Prevención de R.'>
+						Seguridad Industrial y Prevención de R.
 					</option>
 					<option value='Mecánico de Automotores Diesel'>
 						Mecánico de Automotores Diesel
@@ -103,13 +115,15 @@ function RegisterData() {
 					</option>
 					<option value='Diseño Gráfico Digital'>Diseño Gráfico Digital</option>
 					<option value='Mecánico Automotriz'>Mecánico Automotriz</option>
-					<option value='Ingenieria de Software con Inteligencia Artificial'>
-						Ingenieria de Software con Inteligencia Artificial
+					<option value='Ingeniería de Software con I.A'>
+						Ingeniería de Software con I.A
 					</option>
 					<option value='Administración de Empresas'>
 						Administración de Empresas
 					</option>
-					<option value='DE SOPORTE DE TI '>DE SOPORTE DE TI</option>
+					<option value='Ingeniería de Soporte de TI'>
+						Ingeniería de Soporte de TI
+					</option>
 				</select>
 				<Input
 					required={true}

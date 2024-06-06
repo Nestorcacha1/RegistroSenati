@@ -65,6 +65,19 @@ export async function DELETE(request: Request, { params }: Params) {
 		return NextResponse.json(error)
 	}
 }
-export function PACTH(request: Request, { params }: Params) {
-	return NextResponse.json({ message: 'PACTH' })
+export async function PATCH(request: Request, { params }: Params) {
+	try {
+		const { updatedAt } = await request.json()
+		const user = await prisma.usuario.update({
+			where: {
+				id: Number(params.id),
+			},
+			data: {
+				updatedAt,
+			},
+		})
+		return NextResponse.json(user, { status: 200 })
+	} catch (error) {
+		return NextResponse.json(error)
+	}
 }

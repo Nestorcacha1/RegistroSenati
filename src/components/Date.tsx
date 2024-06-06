@@ -11,7 +11,7 @@ function CurrentDate() {
 	return (
 		<>
 			<span className='bg-slate-200 py-2 font-semibold rounded-lg'>
-				Fecha hoy:{fechaActual()}
+				Fecha: {fechaActual()}
 			</span>
 		</>
 	)

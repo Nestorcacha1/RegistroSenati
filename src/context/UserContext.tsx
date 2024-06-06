@@ -6,7 +6,9 @@ import {
 	User,
 	UserRegister,
 	UserUpdate,
+	TimeEdit,
 } from '@/interface/type'
+import { id } from 'date-fns/locale'
 import { createContext, useState } from 'react'
 
 export const UserContext = createContext<{
@@ -21,6 +23,7 @@ export const UserContext = createContext<{
 	EditLaptop: (user: LaptopUpdate, id: string) => Promise<void>
 	EditObjeto: (user: ObjetoUpdate, id: string) => Promise<void>
 	SearchDni: (dni: string) => Promise<User | String>
+	ExitUser: (id: string) => Promise<TimeEdit>
 }>({
 	users: [],
 	dni: '',
@@ -34,6 +37,9 @@ export const UserContext = createContext<{
 	EditObjeto: async (user: ObjetoUpdate, id: string) => {},
 	SearchDni: async (dni: string): Promise<User | String> => {
 		return dni
+	},
+	ExitUser: async (id: string) => {
+		return { updatedAt: '' }
 	},
 })
 
@@ -116,6 +122,25 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		return data // Asegúrate de devolver los datos aquí
 	}
 
+	async function ExitUser(id: string) {
+		const updatedAt = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
+
+		const response = await fetch(`http://localhost:3000/api/user/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ updatedAt }), // Enviar la hora actual en el cuerpo de la solicitud
+		})
+
+		if (!response.ok) {
+			throw new Error('Error al actualizar la hora del usuario')
+		}
+
+		const data = await response.json()
+		return data
+	}
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -129,6 +154,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				EditObjeto,
 				SearchDni,
 				LoadSuperUser,
+				ExitUser,
 				dni: dni || '',
 			}}
 		>

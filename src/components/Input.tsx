@@ -13,7 +13,7 @@ function Input({
 	value,
 	onChange,
 	placeholder,
-	required = false,
+	required = true,
 }: InputsProps) {
 	return (
 		<>

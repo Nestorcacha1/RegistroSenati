@@ -1,9 +1,7 @@
 'use client'
-import Button from '@/components/Button'
-import Input from '@/components/Input'
-import { useSession, signIn } from 'next-auth/react'
-import { redirect } from 'next/navigation'
+import { signIn, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
 function LoginPage() {
 	const { data: sesion } = useSession()
 

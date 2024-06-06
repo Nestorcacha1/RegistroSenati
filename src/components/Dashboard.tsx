@@ -7,8 +7,12 @@ import DeletIcon from './icon/DeletIcon'
 import EditIcon from './icon/EditIcon'
 import CurrentDate from './Date'
 import Title from './Title'
+import UserExit from './UserExit'
+import { useSession } from 'next-auth/react'
+import { da } from 'date-fns/locale'
 
 function Dashboard() {
+	const { data: session, status } = useSession()
 	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
 	const currentDate = new Date()
 	currentDate.setHours(0, 0, 0, 0)
@@ -18,6 +22,7 @@ function Dashboard() {
 		userCreationDate.setHours(0, 0, 0, 0)
 		return userCreationDate.getTime() === currentDate.getTime()
 	})
+
 	useEffect(() => {
 		LoadUsers()
 	}, [])
@@ -61,7 +66,7 @@ function Dashboard() {
 							<th>Nombre Objeto</th>
 							<th>Descripción </th>
 							<th>Editar</th>
-							<th>Eliminar</th>
+							{status === 'authenticated' && <th>Eliminar</th>}
 						</tr>
 					</thead>
 
@@ -75,7 +80,10 @@ function Dashboard() {
 									}
 								>
 									<td>{<Time time={user.createdAt} key={user.id} />}</td>
-									<td>{<Time time={user.updatedAt} key={user.id} />}</td>
+									<td>
+										<UserExit id={user.id.toString()} />
+										<Time time={user.updatedAt} key={user.id} />
+									</td>
 									<td>{user.nombre}</td>
 									<td>{user.apellido}</td>
 									<td>{user.dni}</td>
@@ -84,7 +92,9 @@ function Dashboard() {
 										user.Laptops.map(laptop => (
 											<React.Fragment key={laptop.id}>
 												<td>{laptop.marca || 'Ninguno'}</td>
-												<td>{laptop.numeroSerie || 'Ninguno'}</td>
+												<td className='uppercase'>
+													{laptop.numeroSerie || 'Ninguno'}
+												</td>
 												<td>{laptop.color || 'Ninguno'}</td>
 											</React.Fragment>
 										))}
@@ -102,14 +112,17 @@ function Dashboard() {
 											</a>
 										</button>
 									</td>
-									<td>
-										<button
-											className='bg-red-600 w-8 h-8 rounded-lg p-1'
-											onClick={() => handleDeleteUser(user.id.toString())}
-										>
-											<DeletIcon />
-										</button>
-									</td>
+
+									{status === 'authenticated' && (
+										<td>
+											<button
+												className='bg-red-600 w-8 h-8 rounded-lg p-1'
+												onClick={() => handleDeleteUser(user.id.toString())}
+											>
+												<DeletIcon />
+											</button>
+										</td>
+									)}
 								</tr>
 							))
 						) : (

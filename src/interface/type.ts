@@ -5,7 +5,7 @@ export interface Laptop {
 	color: string
 }
 
-export interface admin {
+export interface Admin {
 	email: string
 	nombre: string
 	apellido: string
@@ -58,6 +58,10 @@ export interface LaptopUpdate {
 export interface ObjetoUpdate {
 	nombre: string
 	descripcion: string
+}
+
+export interface TimeEdit {
+	updatedAt: string
 }
 
 // export interface Admin {
