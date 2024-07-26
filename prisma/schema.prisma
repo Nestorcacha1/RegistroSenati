@@ -34,6 +34,7 @@ model Usuario{
   updatedAt DateTime @updatedAt
   Laptops   Laptop[]
   Objetos   Objeto[]
+  exit     Boolean @default(false)
 }
 
 model Laptop {

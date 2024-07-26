@@ -23,7 +23,7 @@ export const UserContext = createContext<{
 	EditLaptop: (user: LaptopUpdate, id: string) => Promise<void>
 	EditObjeto: (user: ObjetoUpdate, id: string) => Promise<void>
 	SearchDni: (dni: string) => Promise<User | String>
-	ExitUser: (id: string) => Promise<TimeEdit>
+	ExitUser: (id: string, dni: string) => Promise<TimeEdit>
 }>({
 	users: [],
 	dni: '',
@@ -38,8 +38,8 @@ export const UserContext = createContext<{
 	SearchDni: async (dni: string): Promise<User | String> => {
 		return dni
 	},
-	ExitUser: async (id: string) => {
-		return { updatedAt: '' }
+	ExitUser: async (id: string, dni: string) => {
+		return { updatedAt: '', dni }
 	},
 })
 
@@ -122,7 +122,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		return data // Asegúrate de devolver los datos aquí
 	}
 
-	async function ExitUser(id: string) {
+	async function ExitUser(id: string, dni: string) {
 		const updatedAt = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
 
 		const response = await fetch(`http://localhost:3000/api/user/${id}`, {
@@ -130,9 +130,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ updatedAt }), // Enviar la hora actual en el cuerpo de la solicitud
+			body: JSON.stringify({ updatedAt, dniDigits: dni }),
+			// Enviar la hora actual en el cuerpo de la solicitud
 		})
 
+		// console.log(response)
 		if (!response.ok) {
 			throw new Error('Error al actualizar la hora del usuario')
 		}

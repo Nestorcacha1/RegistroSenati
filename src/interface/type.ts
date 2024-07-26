@@ -29,6 +29,7 @@ export interface User {
 	dni: string
 	ncelular: string
 	carrera: string
+	exit: boolean
 	createdAt: string
 	Laptops: Laptop[]
 	Objetos: Objeto[]
