@@ -14,6 +14,14 @@ interface Props {
 export default function RootLayout({ children }: Props) {
 	return (
 		<html lang='en'>
+			<head>
+				<title>Registro</title>
+				<meta
+					name='description'
+					content='Registro de laptops y objetos de alumnos de SENATI'
+				/>
+				<link rel='icon' href='/favicon.ico' />
+			</head>
 			<body className={inter.className}>
 				<SessionProvider>
 					<UserProvider>

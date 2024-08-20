@@ -3,14 +3,14 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
+import { User } from '@/interface/type'
 import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
-import { User } from '@/interface/type'
 import toast from 'react-hot-toast'
 
 function EditPage({ user }: { user: User }) {
 	const { id } = useParams<{ id: string }>()
-	const [nombre, setNombre] = useState<string>('')
+	const [nombre, setNombre] = useState<string>(user?.nombre || '')
 	const [apellido, setApellido] = useState<string>('')
 	const [dni, setDni] = useState<string>('')
 	const [carrera, setCarrera] = useState<string>('')
@@ -58,6 +58,7 @@ function EditPage({ user }: { user: User }) {
 			toast.error('No se pudo actualizar el usuario')
 		}
 	}
+
 	if (redirectTo) {
 		return redirect('/')
 	}

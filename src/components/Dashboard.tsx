@@ -1,15 +1,15 @@
+'use client'
 import { UserContext } from '@/context/UserContext'
-import React, { useContext, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import React, { use, useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
+import CurrentDate from './Date'
 import SearchDni from './SearchDni'
 import Time from './Time'
-import DeletIcon from './icon/DeletIcon'
-import EditIcon from './icon/EditIcon'
-import CurrentDate from './Date'
 import Title from './Title'
 import UserExit from './UserExit'
-import { useSession } from 'next-auth/react'
-import { da } from 'date-fns/locale'
+import DeletIcon from './icon/DeletIcon'
+import EditIcon from './icon/EditIcon'
 
 function Dashboard() {
 	const { data: session, status } = useSession()
@@ -82,7 +82,11 @@ function Dashboard() {
 									<td>{<Time time={user.createdAt} key={user.id} />}</td>
 									<td>
 										<UserExit id={user.id.toString()} />
-										<Time time={user.updatedAt} key={user.id} />
+										{user.exit === true ? (
+											<Time time={user.updatedAt} key={user.id} />
+										) : (
+											''
+										)}
 									</td>
 									<td>{user.nombre}</td>
 									<td>{user.apellido}</td>
