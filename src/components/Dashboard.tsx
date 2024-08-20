@@ -17,11 +17,13 @@ function Dashboard() {
 	const currentDate = new Date()
 	currentDate.setHours(0, 0, 0, 0)
 
-	const usersToday = users.filter(user => {
-		const userCreationDate = new Date(user.createdAt)
-		userCreationDate.setHours(0, 0, 0, 0)
-		return userCreationDate.getTime() === currentDate.getTime()
-	})
+	const usersToday = Array.isArray(users)
+		? users.filter(user => {
+				const userCreationDate = new Date(user.createdAt)
+				userCreationDate.setHours(0, 0, 0, 0)
+				return userCreationDate.getTime() === currentDate.getTime()
+		  })
+		: []
 
 	useEffect(() => {
 		LoadUsers()
