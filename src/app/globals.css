@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 td {
 	@apply px-4 py-2;
 	@apply text-center;
@@ -19,5 +19,3 @@ td {
 /* button {
 	@apply bg-blue-400 font-semibold text-white p-2 rounded-md mt-4 w-full hover:bg-blue-500;
 } */
-
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');

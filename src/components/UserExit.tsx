@@ -16,7 +16,6 @@ function UserExit({ id }: UserExitProps) {
 		if (user && user.exit) {
 			setSalidaRealizada(true)
 		}
-		console.log('users', users)
 	}, [id, users])
 
 	async function handleExitUser(id: string, dni: string) {
