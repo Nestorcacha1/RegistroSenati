@@ -1,6 +1,7 @@
 'use client'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
+import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { User } from '@/interface/type'
@@ -74,6 +75,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Nombre'
 					onChange={e => setNombre(e.target.value)}
 					value={nombre}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>Apellido</label>
 				<Input
@@ -82,45 +84,19 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Apellido'
 					onChange={e => setApellido(e.target.value)}
 					value={apellido}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>DNI</label>
 				<Input
 					required={false}
 					type='text'
 					placeholder='DNI'
+					maxLength={8}
 					onChange={e => setDni(e.target.value)}
 					value={dni}
 				/>
 				<label className='font-semibold text-sm'>Carrera</label>
-				<select
-					className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2 bg-slate-50 '
-					value={carrera}
-					onChange={e => setCarrera(e.target.value)}
-					required
-				>
-					<option value=''>Selecciona una carrera</option>
-					<option value='Administración Industrial'>
-						Administración Industrial
-					</option>
-					<option value='Seguridad Industrial y Prevención de Riesgos'>
-						Seguridad Industrial y Prevención de Riesgos
-					</option>
-					<option value='Mecánico de Automotores Diesel'>
-						Mecánico de Automotores Diesel
-					</option>
-					<option value='Mecánico de Mantenimiento'>
-						Mecánico de Mantenimiento
-					</option>
-					<option value='Diseño Gráfico Digital'>Diseño Gráfico Digital</option>
-					<option value='Mecánico Automotriz'>Mecánico Automotriz</option>
-					<option value='Ingenieria de Software con Inteligencia Artificial'>
-						Ingenieria de Software con Inteligencia Artificial
-					</option>
-					<option value='Administración de Empresas'>
-						Administración de Empresas
-					</option>
-					<option value='DE SOPORTE DE TI '>DE SOPORTE DE TI</option>
-				</select>
+				<SelectCareer carrera={carrera} setCarrera={setCarrera} />
 				<label className='font-semibold text-sm'>Marca</label>
 				<Input
 					required={false}
@@ -128,6 +104,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Marca'
 					onChange={e => setMarca(e.target.value)}
 					value={marca}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>Color</label>
 				<Input
@@ -136,6 +113,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Color'
 					onChange={e => setColor(e.target.value)}
 					value={color}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>Número de Serie</label>
 				<Input
@@ -144,6 +122,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='numeroSerie'
 					onChange={e => setNumeroSerie(e.target.value)}
 					value={numeroSerie}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>Nombre Objeto</label>
 				<Input
@@ -152,6 +131,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Objeto'
 					onChange={e => setObjeto(e.target.value)}
 					value={objeto}
+					maxLength={110}
 				/>
 				<label className='font-semibold text-sm'>Descripción</label>
 				<Input
@@ -160,6 +140,7 @@ function EditPage({ user }: { user: User }) {
 					placeholder='Descripcion del objeto'
 					onChange={e => setDescripcion(e.target.value)}
 					value={descripcion}
+					maxLength={110}
 				/>
 
 				<Button name='Actualizar' onClick={handleUpadateUser} />

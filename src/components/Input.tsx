@@ -6,6 +6,7 @@ interface InputsProps {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 	placeholder: string
 	required: boolean
+	maxLength: number
 }
 
 function Input({
@@ -14,6 +15,7 @@ function Input({
 	onChange,
 	placeholder,
 	required = true,
+	maxLength,
 }: InputsProps) {
 	return (
 		<>
@@ -23,6 +25,7 @@ function Input({
 				onChange={onChange}
 				placeholder={placeholder}
 				required={required}
+				maxLength={maxLength}
 				className='w-full mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300'
 			/>
 		</>

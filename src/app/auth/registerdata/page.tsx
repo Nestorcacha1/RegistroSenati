@@ -1,6 +1,7 @@
 'use client'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
+import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { redirect } from 'next/navigation'
@@ -78,6 +79,7 @@ function RegisterData() {
 					value={nombre}
 					onChange={e => setNombre(e.target.value)}
 					placeholder='Ingrese su nombres'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
@@ -85,52 +87,24 @@ function RegisterData() {
 					value={apellido}
 					onChange={e => setApellido(e.target.value)}
 					placeholder='Ingrese su Apellidos'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
-					type='text'
+					type='number'
 					value={dni}
+					maxLength={8}
 					onChange={e => setDni(e.target.value)}
 					placeholder='Ingrese su DNI'
 				/>
-
-				<select
-					className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2 bg-slate-50'
-					value={carrera}
-					onChange={e => setCarrera(e.target.value)}
-					required
-				>
-					<option value=''>Selecciona una carrera</option>
-					<option value='Administración Industrial'>
-						Administración Industrial
-					</option>
-					<option value='Seguridad Industrial y Prevención de R.'>
-						Seguridad Industrial y Prevención de R.
-					</option>
-					<option value='Mecánico de Automotores Diesel'>
-						Mecánico de Automotores Diesel
-					</option>
-					<option value='Mecánico de Mantenimiento'>
-						Mecánico de Mantenimiento
-					</option>
-					<option value='Diseño Gráfico Digital'>Diseño Gráfico Digital</option>
-					<option value='Mecánico Automotriz'>Mecánico Automotriz</option>
-					<option value='Ingeniería de Software con I.A'>
-						Ingeniería de Software con I.A
-					</option>
-					<option value='Administración de Empresas'>
-						Administración de Empresas
-					</option>
-					<option value='Ingeniería de Soporte de TI'>
-						Ingeniería de Soporte de TI
-					</option>
-				</select>
+				<SelectCareer carrera={carrera} setCarrera={setCarrera} />
 				<Input
 					required={true}
 					type='text'
 					value={marca}
 					onChange={e => setMarca(e.target.value)}
 					placeholder='Ingrese la marca de la laptop'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
@@ -138,6 +112,7 @@ function RegisterData() {
 					value={color}
 					onChange={e => setColor(e.target.value)}
 					placeholder='Ingrese el color de la laptop'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
@@ -145,6 +120,7 @@ function RegisterData() {
 					value={numeroSerie}
 					onChange={e => setNumeroSerie(e.target.value)}
 					placeholder='Ingrese el numero de serie de la laptop'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
@@ -152,6 +128,7 @@ function RegisterData() {
 					value={objeto}
 					onChange={e => setObjeto(e.target.value)}
 					placeholder='Ingrese el nombre del objeto'
+					maxLength={110}
 				/>
 				<Input
 					required={true}
@@ -159,6 +136,7 @@ function RegisterData() {
 					value={descripcion}
 					onChange={e => setDescripcion(e.target.value)}
 					placeholder='Ingrese la descripcion del objeto'
+					maxLength={110}
 				/>
 
 				<Button name='Registrar' onClick={handleRegistrar} />
