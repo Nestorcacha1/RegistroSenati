@@ -2,6 +2,7 @@
 
 import PdfGenerate from '@/components/PdfGenerate'
 import SearchDni from '@/components/SearchDni'
+import UserTableAll from '@/components/Table/UserTableAll'
 import Time from '@/components/Time'
 import Lefticon from '@/components/icon/Lefticon'
 import { UserContext } from '@/context/UserContext'
@@ -66,70 +67,15 @@ function AllRegister() {
 							<PdfGenerate date={date} />
 						</div>
 
-						<div id={`table-${date}`}>
-							<table className='table-auto w-full mt-1'>
-								<thead>
-									<tr className='bg-sky-300'>
-										<th colSpan={11} className='text-center'>
-											{date}
-										</th>
-									</tr>
-									<tr className='bg-sky-300'>
-										<th>Hora Ent.</th>
-										<th>Hora Sali.</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>DNI</th>
-										<th>Carrera</th>
-										<th>Marca</th>
-										<th>Número de Serie</th>
-										<th>Color</th>
-										<th>Nombre Objeto</th>
-										<th>Descripción</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									{(users as User[]).length > 0 ? (
-										(users as User[]).map(user => (
-											<tr
-												key={user.id}
-												className={
-													user.dni == dni ? 'bg-green-400 font-semibold ' : ''
-												}
-											>
-												<td>{<Time time={user.createdAt} key={user.id} />}</td>
-												<td>{<Time time={user.updatedAt} key={user.id} />}</td>
-												<td>{user.nombre}</td>
-												<td>{user.apellido}</td>
-												<td>{user.dni}</td>
-												<td>{user.carrera}</td>
-												{user.Laptops &&
-													user.Laptops.map(laptop => (
-														<React.Fragment key={laptop.id}>
-															<td>{laptop.marca || 'Ninguno'}</td>
-															<td>{laptop.numeroSerie || 'Ninguno'}</td>
-															<td>{laptop.color || 'Ninguno'}</td>
-														</React.Fragment>
-													))}
-												{user.Objetos &&
-													user.Objetos.map(objeto => (
-														<React.Fragment key={objeto.id}>
-															<td>{objeto.nombre || 'Ninguno'}</td>
-															<td>{objeto.descripcion || 'Ninguno'}</td>
-														</React.Fragment>
-													))}
-											</tr>
-										))
-									) : (
-										<tr>
-											<td colSpan={13} className='text-center text-red-500'>
-												No hay registros o error en la base de datos
-											</td>
-										</tr>
-									)}
-								</tbody>
-							</table>
+						<div
+							id={`table-${date}`}
+							className='space-x-4 flex overflow-x-auto'
+						>
+							<UserTableAll
+								users={groupedUsers[date] as User[]}
+								dni={dni.toString()}
+								date={date}
+							/>
 						</div>
 					</section>
 				))
