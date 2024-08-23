@@ -16,7 +16,6 @@ datasource db {
 model Admin {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  password  String
   nombre    String
   apellido  String
   isAdmin   Boolean  @default(true)
@@ -30,6 +29,7 @@ model Usuario{
   apellido  String
   dni      String
   carrera   String
+  exitTime DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Laptops   Laptop[]

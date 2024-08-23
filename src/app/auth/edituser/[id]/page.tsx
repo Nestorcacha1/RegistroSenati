@@ -65,9 +65,9 @@ function EditPage({ user }: { user: User }) {
 	}
 
 	return (
-		<div className='shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-1/2 h-auto mx-auto mt-8 '>
+		<div className='shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-8'>
 			<Title name='Actualiza Tus Datos' />
-			<div className='flex flex-col'>
+			<div className='flex flex-col space-y-1'>
 				<label className='font-semibold text-sm'>Nombre</label>
 				<Input
 					required={false}

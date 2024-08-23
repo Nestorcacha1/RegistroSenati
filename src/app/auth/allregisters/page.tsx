@@ -3,12 +3,12 @@
 import PdfGenerate from '@/components/PdfGenerate'
 import SearchDni from '@/components/SearchDni'
 import UserTableAll from '@/components/Table/UserTableAll'
-import Time from '@/components/Time'
+import Title from '@/components/Title'
 import Lefticon from '@/components/icon/Lefticon'
 import { UserContext } from '@/context/UserContext'
 import { User } from '@/interface/type'
 import Link from 'next/link'
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 function AllRegister() {
 	const { users, LoadUsers, dni } = useContext(UserContext)
@@ -41,9 +41,7 @@ function AllRegister() {
 
 	return (
 		<>
-			<div className='text-center mt-10 mb-10 font-semibold text-3xl uppercase'>
-				Registro de todo los alumnos | SENATI
-			</div>
+			<Title name='Historial de Ingreso y Salida de Laptops de Estudiantes' />
 			<div>
 				<div className='mt-4 ml-5 w-10 bg-slate-400 rounded-md '>
 					<Link href={'/'} title='Atras'>

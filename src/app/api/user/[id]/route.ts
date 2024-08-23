@@ -70,9 +70,9 @@ export async function PATCH(
 	{ params }: { params: { id: string } }
 ) {
 	try {
-		const { updatedAt, dniDigits } = await request.json()
+		const { exitTime, dniDigits } = await request.json()
 
-		if (!updatedAt || !dniDigits) {
+		if (!exitTime || !dniDigits) {
 			return NextResponse.json(
 				{ error: 'Datos de entrada no válidos' },
 				{ status: 400 }
@@ -107,7 +107,7 @@ export async function PATCH(
 
 		const updatedUser = await prisma.usuario.update({
 			where: { id: userId },
-			data: { updatedAt, exit: true },
+			data: { exitTime, exit: true },
 		})
 
 		return NextResponse.json(updatedUser, { status: 200 })

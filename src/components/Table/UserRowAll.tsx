@@ -13,7 +13,7 @@ function UserRowAll({ user, dni }: userRowAllProps) {
 			<td>{<Time time={user.createdAt} key={user.id} />}</td>
 
 			<td>
-				<Time time={user.updatedAt} key={user.id} />
+				<Time time={user.exitTime} key={user.id} />
 			</td>
 			<td>{user.nombre}</td>
 			<td>{user.apellido}</td>

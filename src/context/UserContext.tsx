@@ -123,14 +123,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function ExitUser(id: string, dni: string) {
-		const updatedAt = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
+		const exitTime = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
 
 		const response = await fetch(`http://localhost:3000/api/user/${id}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ updatedAt, dniDigits: dni }),
+			body: JSON.stringify({ exitTime, dniDigits: dni }),
 			// Enviar la hora actual en el cuerpo de la solicitud
 		})
 

@@ -37,7 +37,7 @@ function Dashboard() {
 	return (
 		<>
 			<div className='text-center'>
-				<Title name='Registro de Usuarios' />
+				<Title name='Registro de Ingreso y Salida de Laptops de Estudiantes' />
 			</div>
 			<div className='text-center'>
 				<CurrentDate />

@@ -26,7 +26,7 @@ function Input({
 				placeholder={placeholder}
 				required={required}
 				maxLength={maxLength}
-				className='w-full mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300'
+				className='w-full mt-2 px-3 py-2 placeholder-gray-500 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:shadow-outline-gray focus:border-blue-300 sm:py-3 sm:px-4 md:py-4 md:px-5 lg:py-5 lg:px-6'
 			/>
 		</>
 	)

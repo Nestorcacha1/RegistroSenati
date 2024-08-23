@@ -21,7 +21,7 @@ export interface Objeto {
 }
 
 export interface User {
-	updatedAt: string
+	exitTime: string
 	id: number
 	idUsuario: string
 	nombre: string

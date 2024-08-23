@@ -23,7 +23,7 @@ const UserRow: React.FC<UserRowProps> = ({
 			<td>{<Time time={user.createdAt} key={user.id} />}</td>
 			<td>
 				<UserExit id={user.id.toString()} />
-				{user.exit === true ? <Time time={user.updatedAt} key={user.id} /> : ''}
+				{user.exit === true ? <Time time={user.exitTime} key={user.id} /> : ''}
 			</td>
 			<td>{user.nombre}</td>
 			<td>{user.apellido}</td>

@@ -7,9 +7,9 @@ interface TitleProps {
 export default function Title({ name }: TitleProps) {
 	return (
 		<>
-			<h1 className='primary-dark text-center text-4xl font-bold mt-8 py-2'>
+			<h2 className='text-center font-bold mt-8 py-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl primary-dark'>
 				{name}
-			</h1>
+			</h2>
 		</>
 	)
 }
