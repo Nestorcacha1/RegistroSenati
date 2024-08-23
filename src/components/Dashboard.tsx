@@ -35,23 +35,23 @@ function Dashboard() {
 	}
 
 	return (
-		<>
+		<div className='container mx-auto px-'>
 			<div className='text-center'>
 				<Title name='Registro de Ingreso y Salida de Laptops de Estudiantes' />
 			</div>
-			<div className='text-center'>
+			<div className='text-center my-4'>
 				<CurrentDate />
 			</div>
-			<div className='flex justify-between'>
-				<button className='w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-8 ml-5'>
+			<div className='flex flex-col md:flex-row justify-between items-center'>
+				<button className=' md:w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-4 md:mb-8 ml-0 md:ml-5'>
 					<a href='/auth/registerdata'>Registrar</a>
 				</button>
-				<span className='mr-8'>
+				<span className='w-full md:w-auto mr-0 md:mr-8 '>
 					<SearchDni />
 				</span>
 			</div>
 
-			<section className='space-x-4 flex overflow-x-auto'>
+			<section className='overflow-x-auto rounded-lg'>
 				<UserTable
 					users={usersToday}
 					dni={dni.toString()}
@@ -59,7 +59,7 @@ function Dashboard() {
 					onDeleteUser={handleDeleteUser}
 				/>
 			</section>
-		</>
+		</div>
 	)
 }
 

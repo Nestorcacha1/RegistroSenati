@@ -42,42 +42,43 @@ function AllRegister() {
 	return (
 		<>
 			<Title name='Historial de Ingreso y Salida de Laptops de Estudiantes' />
-			<div>
-				<div className='mt-4 ml-5 w-10 bg-slate-400 rounded-md '>
-					<Link href={'/'} title='Atras'>
+			<header className='flex items-center justify-between p-2'>
+				<span className='w-10'>
+					<Link href='/' aria-label='Atrás'>
 						<Lefticon className='w-9' />
 					</Link>
-				</div>
-				<div>
-					<span>
-						<SearchDni />
-					</span>
-				</div>
-			</div>
-			{Object.keys(groupedUsers).length === 0 ? (
-				<span className='text-center text-red-500'>
-					No hay registros o error en la base de datos
 				</span>
-			) : (
-				Object.entries(groupedUsers).map(([date, users]) => (
-					<section key={date} className=''>
-						<div className='flex items-center justify-center mt-5'>
-							<PdfGenerate date={date} />
-						</div>
+				<span className='w-full md:w-auto mr-0 md:mr-10'>
+					<SearchDni />
+				</span>
+			</header>
 
-						<div
-							id={`table-${date}`}
-							className='space-x-4 flex overflow-x-auto'
-						>
-							<UserTableAll
-								users={groupedUsers[date] as User[]}
-								dni={dni.toString()}
-								date={date}
-							/>
-						</div>
-					</section>
-				))
-			)}
+			<main className='p-4'>
+				{Object.keys(groupedUsers).length === 0 ? (
+					<p className='text-center text-red-500'>
+						No hay registros o error en la base de datos
+					</p>
+				) : (
+					Object.entries(groupedUsers).map(([date, users]) => (
+						<article key={date} className='mb-8'>
+							<div className='flex justify-center mb-4'>
+								<PdfGenerate date={date} />
+							</div>
+
+							<div
+								id={`table-${date}`}
+								className='overflow-x-auto rounded-lg border border-gray-300 shadow-lg'
+							>
+								<UserTableAll
+									users={groupedUsers[date] as User[]}
+									dni={dni.toString()}
+									date={date}
+								/>
+							</div>
+						</article>
+					))
+				)}
+			</main>
 		</>
 	)
 }

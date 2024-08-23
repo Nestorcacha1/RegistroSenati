@@ -7,20 +7,20 @@ function LoginPage() {
 
 	if (!sesion) {
 		return (
-			<div className='flex items-center justify-center h-screen bg-gray-100'>
-				<div className='flex flex-col items-center justify-center p-4 space-y-4 bg-white rounded shadow h-1/2 w-1/2'>
-					<h2 className='text-2xl font-bold text-center text-gray-800 '>
+			<div className='flex items-center justify-center min-h-screen bg-gray-100'>
+				<div className='flex flex-col items-center justify-center p-6 space-y-6 bg-white rounded-lg shadow-lg sm:w-3/4 md:w-1/2 lg:w-1/3'>
+					<h2 className='text-xl font-bold text-center text-gray-800 sm:text-2xl md:text-3xl'>
 						Inicio De Sesión Del Administrador
 					</h2>
 					<button
 						onClick={() => {
 							signIn('google')
 						}}
-						className='bg-blue-300 rounded-full p-2 w-20 h-20 flex items-center justify-center space-x-2'
+						className='bg-blue-300 rounded-full p-3 sm:p-4 md:p-5 flex items-center justify-center space-x-2'
 					>
 						<Image src='/google.png' alt='google' width={60} height={60} />
 					</button>
-					<span className='text-center bg-sky-100'>
+					<span className='text-center text-sm text-gray-700 sm:text-base'>
 						Inicia sesión con Google
 					</span>
 				</div>
