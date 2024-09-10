@@ -1,10 +1,12 @@
 'use client'
 import Button from '@/components/Button'
+import Lefticon from '@/components/icon/Lefticon'
 import Input from '@/components/Input'
 import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { User } from '@/interface/type'
+import Link from 'next/link'
 import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -66,6 +68,11 @@ function EditPage({ user }: { user: User }) {
 
 	return (
 		<div className='shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-8'>
+			<span className='w-10'>
+				<Link href='/' aria-label='Atrás'>
+					<Lefticon className='w-9' />
+				</Link>
+			</span>
 			<Title name='Actualiza Tus Datos' />
 			<div className='flex flex-col space-y-1'>
 				<label className='font-semibold text-sm'>Nombre</label>

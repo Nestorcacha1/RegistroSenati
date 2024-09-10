@@ -58,16 +58,24 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		setUser(data)
 	}
 
-	async function AddUsers(user: UserRegister) {
-		const response = await fetch('http://localhost:3000/api/user', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(user),
-		})
-		const newUser = await response.json()
-		setUsers([...users, newUser])
+	async function AddUsers(user: UserRegister): Promise<void> {
+		try {
+			const response = await fetch('http://localhost:3000/api/user', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(user),
+			})
+			if (!response.ok) {
+				throw new Error('Error al agregar el usuario')
+			}
+			const newUser = await response.json()
+			setUsers([...users, newUser])
+		} catch (error) {
+			console.error(error, 'Error al agregar el usuario')
+			throw new Error('Error al agregar el usuario')
+		}
 	}
 
 	async function EditUser(user: UserUpdate, id: string) {
@@ -113,13 +121,18 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function SearchDni(dni: string): Promise<User | String> {
-		const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
-		const data = await response.json()
-		if (data.message === null) {
-			return data.message
+		try {
+			const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
+			const data = await response.json()
+			if (data.message === null) {
+				return data.message('Usuario no encontrado')
+			}
+			setDni(data.dni)
+			return data // Devolver el usuario encontrado
+		} catch (error) {
+			console.error(error)
+			return 'Error al buscar el usuario'
 		}
-		setDni(data.dni)
-		return data // Asegúrate de devolver los datos aquí
 	}
 
 	async function ExitUser(id: string, dni: string) {

@@ -20,6 +20,10 @@ function UserExit({ id }: UserExitProps) {
 
 	async function handleExitUser(id: string, dni: string) {
 		try {
+			if (dni.length === 0) {
+				toast.error('Ingrese los últimos 3 dígitos de tu DNI')
+				return
+			}
 			await ExitUser(id, dni)
 			LoadUsers()
 			toast.success('Salida de usuario registrada')
@@ -38,6 +42,7 @@ function UserExit({ id }: UserExitProps) {
 			<input
 				type='text'
 				value={dni}
+				maxLength={3}
 				onChange={e => setDni(e.target.value)}
 				placeholder='Últimos 3 dígitos del DNI'
 				className='border rounded px-2 py-1 mr-2'

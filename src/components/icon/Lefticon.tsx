@@ -2,7 +2,7 @@ import React from 'react'
 
 function Lefticon({ className = 'w-6 h-6' }) {
 	return (
-		<div>
+		<div className='relative'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				className={className}
@@ -15,6 +15,7 @@ function Lefticon({ className = 'w-6 h-6' }) {
 					clipRule='evenodd'
 				/>
 			</svg>
+			<h5 className='text-sm font-semibolds'>Atras</h5>
 		</div>
 	)
 }
