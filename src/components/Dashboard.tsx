@@ -8,9 +8,6 @@ import toast from 'react-hot-toast'
 import CurrentDate from './Date'
 import SearchDni from './SearchDni'
 import Title from './Title'
-import Backgroun from './Background'
-import Background from './Background'
-import Image from 'next/image'
 
 function Dashboard() {
 	const { data: session, status } = useSession()
@@ -45,7 +42,7 @@ function Dashboard() {
 	}
 
 	return (
-		<div className='container mx-auto px-2'>
+		<div className='lg:container mx-auto px-2'>
 			<div className='text-center'>
 				<Title name='Registro de Ingreso y Salida de Laptops de Estudiantes' />
 			</div>

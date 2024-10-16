@@ -1,8 +1,6 @@
+import prisma from '@/libs/db'
 import NextAuth, { getServerSession } from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
-import prisma from '@/libs/db'
-import { Admin } from '@prisma/client'
-import Email from 'next-auth/providers/email'
 const handler = NextAuth({
 	providers: [
 		GoogleProvider({
