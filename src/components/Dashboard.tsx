@@ -1,17 +1,28 @@
-'use client'
-
-import UserTable from '@/components/Table/UserTable'
-import { UserContext } from '@/context/UserContext'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useContext, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import CurrentDate from './Date'
 import SearchDni from './SearchDni'
 import Title from './Title'
+import UserFooter from './Table/UserFooter'
+import UserTable from '@/components/Table/UserTable'
+import { UserContext } from '@/context/UserContext'
 
 function Dashboard() {
 	const { data: session, status } = useSession()
-	const { users, LoadUsers, DeleteUser, dni } = useContext(UserContext)
+	const {
+		users,
+		LoadUsersPaginated,
+		DeleteUser,
+		dni,
+		count,
+		nextPage,
+		previousPage,
+		nextNumber,
+		previousNumber,
+	} = useContext(UserContext)
+
+	const [currentPage, setCurrentPage] = useState(1)
 
 	if (dni) {
 		users.sort((a, b) => {
@@ -20,25 +31,29 @@ function Dashboard() {
 			return 0
 		})
 	}
-	const currentDate = new Date()
-	currentDate.setHours(0, 0, 0, 0)
-
-	const usersToday = Array.isArray(users)
-		? users.filter(user => {
-				const userCreationDate = new Date(user.createdAt)
-				userCreationDate.setHours(0, 0, 0, 0)
-				return userCreationDate.getTime() === currentDate.getTime()
-		  })
-		: []
 
 	useEffect(() => {
-		LoadUsers()
+		LoadUsersPaginated(1)
 	}, [])
 
 	async function handleDeleteUser(id: string) {
 		await DeleteUser(id)
-		LoadUsers()
+		LoadUsersPaginated(currentPage)
 		toast.success('Usuario eliminado correctamente')
+	}
+
+	const handleNextPage = () => {
+		if (nextPage) {
+			setCurrentPage(currentPage + 1) // Cambia la página
+			LoadUsersPaginated(currentPage + 1) // Carga la nueva página
+		}
+	}
+
+	const handlePreviousPage = () => {
+		if (previousPage && currentPage > 1) {
+			setCurrentPage(currentPage - 1) // Cambia la página
+			LoadUsersPaginated(currentPage - 1) // Carga la página anterior
+		}
 	}
 
 	return (
@@ -50,7 +65,7 @@ function Dashboard() {
 				<CurrentDate />
 			</div>
 			<div className='flex flex-col md:flex-row justify-between items-center'>
-				<button className=' md:w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-4 md:mb-8 ml-0 md:ml-5'>
+				<button className='md:w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-4 md:mb-8 ml-0 md:ml-5'>
 					<a href='/auth/registerdata'>Registrar</a>
 				</button>
 				<span className='w-full md:w-auto mr-0 md:mr-8 '>
@@ -60,10 +75,19 @@ function Dashboard() {
 
 			<section className='overflow-x-auto rounded-lg'>
 				<UserTable
-					users={usersToday}
-					dni={dni.toString()}
+					users={users || []}
+					dni={dni ? dni.toString() : ''}
 					isAuthenticated={status === 'authenticated'}
 					onDeleteUser={handleDeleteUser}
+				/>
+				<UserFooter
+					count={count}
+					next={nextNumber || 'Final'}
+					previous={previousNumber || 'Inicio'}
+					isFirstPage={currentPage === 1}
+					isLastPage={!nextPage}
+					onNext={handleNextPage}
+					onPrevious={handlePreviousPage}
 				/>
 			</section>
 		</div>

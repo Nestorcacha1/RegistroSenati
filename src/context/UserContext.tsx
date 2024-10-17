@@ -1,4 +1,5 @@
 'use client'
+
 import {
 	Admin,
 	LaptopUpdate,
@@ -8,15 +9,24 @@ import {
 	UserUpdate,
 	TimeEdit,
 } from '@/interface/type'
-import { id } from 'date-fns/locale'
 import { createContext, useState } from 'react'
 
 export const UserContext = createContext<{
 	users: User[]
 	dni: String
-	user: Admin[]
-	LoadUsers: () => Promise<void>
-	LoadSuperUser: () => Promise<void>
+	count: number | undefined
+	nextPage: string | null | undefined
+	previousPage: string | null | undefined
+	previousNumber: string | number | null | undefined
+	nextNumber: string | number | undefined | null
+
+	countT: number | undefined
+	nextPageT: string | null | undefined
+	previousPageT: string | null | undefined
+	previousNumberT: string | number | null | undefined
+	nextNumberT: string | number | undefined | null
+	LoadUsersPaginated: (page: number) => Promise<void>
+	LoadUsersTotal: (page: number) => Promise<void>
 	AddUsers: (user: UserRegister) => Promise<void>
 	DeleteUser: (id: string) => Promise<void>
 	EditUser: (user: UserUpdate, id: string) => Promise<void>
@@ -27,9 +37,19 @@ export const UserContext = createContext<{
 }>({
 	users: [],
 	dni: '',
-	user: [],
-	LoadUsers: async () => {},
-	LoadSuperUser: async () => {},
+	count: 1,
+	nextPage: '',
+	previousPage: '',
+	previousNumber: 0,
+	nextNumber: 0,
+
+	countT: 1,
+	nextPageT: '',
+	previousPageT: '',
+	previousNumberT: 0,
+	nextNumberT: 0,
+	LoadUsersPaginated: async (page: number) => {},
+	LoadUsersTotal: async (page: number) => {},
 	AddUsers: async (user: UserRegister) => {},
 	DeleteUser: async (id: string) => {},
 	EditUser: async (user: UserUpdate, id: string) => {},
@@ -46,16 +66,51 @@ export const UserContext = createContext<{
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [users, setUsers] = useState<User[]>([])
 	const [dni, setDni] = useState<string | null>(null)
-	const [user, setUser] = useState<Admin[]>([])
-	async function LoadUsers() {
-		const response = await fetch('/api/user')
-		const data = await response.json()
-		setUsers(data)
+
+	const [count, setCount] = useState<number>()
+	const [nextPage, setNextPage] = useState<string | null>()
+	const [previousPage, setPreviousPage] = useState<string | null>()
+	const [previousNumber, SetPreviousNumber] = useState<number>()
+	const [nextNumber, SetNextNumber] = useState<number>()
+
+	const [countT, setCountT] = useState<number>()
+	const [nextPageT, setNextPageT] = useState<string | null>()
+	const [previousPageT, setPreviousPageT] = useState<string | null>()
+	const [previousNumberT, SetPreviousNumberT] = useState<number>()
+	const [nextNumberT, SetNextNumberT] = useState<number>()
+
+	async function LoadUsersPaginated(page: number): Promise<void> {
+		try {
+			const response = await fetch(`/api/user?filterByTime&page=${page}`)
+			const data = await response.json()
+			console.log(data)
+			setUsers(data.results)
+			setCount(data.count)
+			setNextPage(data.next)
+			setPreviousPage(data.previous)
+			SetPreviousNumber(data.previousNumber)
+			SetNextNumber(data.nextNumber)
+		} catch (error) {
+			console.error('Error al cargar usuarios con paginación', error)
+			throw new Error('Error al cargar usuarios con paginación')
+		}
 	}
-	async function LoadSuperUser() {
-		const response = await fetch('/api/admin')
-		const data = await response.json()
-		setUser(data)
+
+	// Función para cargar usuarios filtrados por horas con paginación
+	async function LoadUsersTotal(page: number) {
+		try {
+			const response = await fetch(`/api/user/total?page=${page}`)
+			const data = await response.json()
+			console.log(data)
+			setUsers(data.results)
+			setCountT(data.count)
+			setNextPageT(data.next)
+			setPreviousPageT(data.previous)
+			SetPreviousNumberT(data.previousNumber)
+			SetNextNumberT(data.nextNumber)
+		} catch (error) {
+			console.error('Error al cargar todo los usuarios', error)
+		}
 	}
 
 	async function AddUsers(user: UserRegister): Promise<void> {
@@ -160,15 +215,26 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		<UserContext.Provider
 			value={{
 				users,
-				user,
-				LoadUsers,
+				count,
+				nextPage,
+				previousPage,
+				nextNumber,
+				previousNumber,
+
+				countT,
+				nextPageT,
+				previousPageT,
+				previousNumberT,
+				nextNumberT,
+
+				LoadUsersPaginated,
+				LoadUsersTotal,
 				AddUsers,
 				DeleteUser,
 				EditUser,
 				EditLaptop,
 				EditObjeto,
 				SearchDni,
-				LoadSuperUser,
 				ExitUser,
 				dni: dni || '',
 			}}

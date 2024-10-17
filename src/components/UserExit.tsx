@@ -7,7 +7,7 @@ interface UserExitProps {
 }
 
 function UserExit({ id }: UserExitProps) {
-	const { ExitUser, LoadUsers, users } = useContext(UserContext)
+	const { ExitUser, LoadUsersPaginated, users } = useContext(UserContext)
 	const [dni, setDni] = useState('')
 	const [salidaRealizada, setSalidaRealizada] = useState(false)
 
@@ -25,7 +25,7 @@ function UserExit({ id }: UserExitProps) {
 				return
 			}
 			await ExitUser(id, dni)
-			LoadUsers()
+			LoadUsersPaginated(1)
 			toast.success('Salida de usuario registrada')
 			setSalidaRealizada(true)
 		} catch (error) {

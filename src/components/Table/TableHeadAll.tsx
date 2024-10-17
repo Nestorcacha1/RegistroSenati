@@ -3,7 +3,7 @@ import React from 'react'
 function UserHeadAll() {
 	return (
 		<thead>
-			<tr className='bg-sky-300'>
+			<tr className='bg-blue-700 p-1'>
 				<th>Hora Ent.</th>
 				<th>Hora Sali.</th>
 				<th>Nombre</th>

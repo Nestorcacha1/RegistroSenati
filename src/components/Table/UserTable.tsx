@@ -2,6 +2,7 @@ import React from 'react'
 import UserRow from './UserRow'
 import TableHeader from '@/components/Table/TableHead'
 import { User } from '@/interface/type'
+import UserFooter from './UserFooter'
 
 interface UserTableProps {
 	users: User[]

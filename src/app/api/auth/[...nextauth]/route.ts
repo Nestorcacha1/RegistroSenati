@@ -24,7 +24,6 @@ const handler = NextAuth({
 					const newUser = await prisma.admin.create({
 						data: {
 							email: user.email as string,
-							password: '',
 							nombre: user.name?.split(' ')[0] || '',
 							isAdmin: false,
 							apellido: user.name?.split(' ')[1] || '',

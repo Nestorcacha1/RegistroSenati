@@ -22,6 +22,7 @@ export default function PdfGenerate({ date }: { date: string }) {
 			if (response.ok) {
 				const pdfBlob = await response.blob()
 				const pdfUrl = URL.createObjectURL(pdfBlob)
+				console.log('PDF generado:', pdfUrl)
 				window.open(pdfUrl)
 			} else {
 				console.error('Error al generar el PDF')
