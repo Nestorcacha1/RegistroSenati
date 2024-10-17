@@ -20,13 +20,8 @@ export const UserContext = createContext<{
 	previousNumber: string | number | null | undefined
 	nextNumber: string | number | undefined | null
 
-	countT: number | undefined
-	nextPageT: string | null | undefined
-	previousPageT: string | null | undefined
-	previousNumberT: string | number | null | undefined
-	nextNumberT: string | number | undefined | null
 	LoadUsersPaginated: (page: number) => Promise<void>
-	LoadUsersTotal: (page: number) => Promise<void>
+	LoadUsersTotal: () => Promise<void>
 	AddUsers: (user: UserRegister) => Promise<void>
 	DeleteUser: (id: string) => Promise<void>
 	EditUser: (user: UserUpdate, id: string) => Promise<void>
@@ -43,13 +38,8 @@ export const UserContext = createContext<{
 	previousNumber: 0,
 	nextNumber: 0,
 
-	countT: 1,
-	nextPageT: '',
-	previousPageT: '',
-	previousNumberT: 0,
-	nextNumberT: 0,
 	LoadUsersPaginated: async (page: number) => {},
-	LoadUsersTotal: async (page: number) => {},
+	LoadUsersTotal: async () => {},
 	AddUsers: async (user: UserRegister) => {},
 	DeleteUser: async (id: string) => {},
 	EditUser: async (user: UserUpdate, id: string) => {},
@@ -73,12 +63,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	const [previousNumber, SetPreviousNumber] = useState<number>()
 	const [nextNumber, SetNextNumber] = useState<number>()
 
-	const [countT, setCountT] = useState<number>()
-	const [nextPageT, setNextPageT] = useState<string | null>()
-	const [previousPageT, setPreviousPageT] = useState<string | null>()
-	const [previousNumberT, SetPreviousNumberT] = useState<number>()
-	const [nextNumberT, SetNextNumberT] = useState<number>()
-
 	async function LoadUsersPaginated(page: number): Promise<void> {
 		try {
 			const response = await fetch(`/api/user?filterByTime&page=${page}`)
@@ -97,17 +81,12 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	// Función para cargar usuarios filtrados por horas con paginación
-	async function LoadUsersTotal(page: number) {
+	async function LoadUsersTotal() {
 		try {
-			const response = await fetch(`/api/user/total?page=${page}`)
+			const response = await fetch(`/api/user/total`)
 			const data = await response.json()
 			console.log(data)
 			setUsers(data.results)
-			setCountT(data.count)
-			setNextPageT(data.next)
-			setPreviousPageT(data.previous)
-			SetPreviousNumberT(data.previousNumber)
-			SetNextNumberT(data.nextNumber)
 		} catch (error) {
 			console.error('Error al cargar todo los usuarios', error)
 		}
@@ -220,12 +199,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				previousPage,
 				nextNumber,
 				previousNumber,
-
-				countT,
-				nextPageT,
-				previousPageT,
-				previousNumberT,
-				nextNumberT,
 
 				LoadUsersPaginated,
 				LoadUsersTotal,
