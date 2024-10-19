@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 interface ButtonProps {
 	name: string
-	onClick: () => void
+	onClick?: () => void
+	children?: ReactNode
 }
+const noop = () => {}
 
-function Button({ name, onClick }: ButtonProps) {
+function Button({ name, onClick = noop, children }: ButtonProps) {
 	return (
 		<>
 			<button
-				className='bg-blue-400 font-semibold text-white py-2 px-4 rounded-md mt-4 w-auto hover:bg-blue-500 sm:px-6 md:px-8 lg:px-10 xl:px-12 '
+				className='bg-se-secondary font-semibold text-white py-2 px-4 rounded-md mt-4 w-auto hover:bg-se-primary sm:px-6 md:px-8 lg:px-10 xl:px-12 '
 				onClick={onClick}
+				name={name}
 			>
-				{name}
+				{children}
 			</button>
 		</>
 	)

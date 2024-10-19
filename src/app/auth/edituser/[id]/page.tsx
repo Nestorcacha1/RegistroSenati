@@ -150,7 +150,9 @@ function EditPage({ user }: { user: User }) {
 					maxLength={110}
 				/>
 
-				<Button name='Actualizar' onClick={handleUpadateUser} />
+				<Button name='Actualizar' onClick={handleUpadateUser}>
+					Actualizar
+				</Button>
 			</div>
 		</div>
 	)

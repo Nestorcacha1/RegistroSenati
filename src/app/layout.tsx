@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Props) {
 				/>
 				<link rel='icon' href='/favicon.ico' />
 			</head>
-			<body className='bg-gradient-to-r from-cyan-500 to-blue-500'>
+			<body className=''>
 				<SessionProvider>
 					<UserProvider>
 						<Toaster />

@@ -21,7 +21,7 @@ const UserTable: React.FC<UserTableProps> = ({
 		<div className='overflow-y-auto max-h-96'>
 			<table className='table-auto w-full'>
 				<TableHeader isAuthenticated={isAuthenticated} />
-				<tbody className=''>
+				<tbody className='shadow-md bg-gray-200 border-2 border-indigo-700'>
 					{users.length > 0 ? (
 						users.map(user => (
 							<UserRow

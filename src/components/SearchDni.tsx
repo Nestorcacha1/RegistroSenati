@@ -40,7 +40,9 @@ function SearchDNI() {
 				onChange={e => setDni(e.target.value)}
 			/>
 			{/* <SearchIcon className='w-6 h-6' /> */}
-			<Button name='Buscar' onClick={BuscarDni} />
+			<Button name={'Buscar'} onClick={BuscarDni}>
+				Buscar
+			</Button>
 		</>
 	)
 }

@@ -7,12 +7,14 @@ export async function POST(req: NextRequest) {
 	const { html } = await req.json()
 
 	try {
-		// Lanzar una nueva instancia del navegador
-		const browser = await puppeteer.launch()
+		// Lanzar una nueva instancia del navegador, modo sin sandbox
+		const browser = await puppeteer.launch({
+			args: ['--no-sandbox', '--disable-setuid-sandbox'], // Sin sandbox
+		})
 		const page = await browser.newPage()
 
-		// Establecer el contenido HTML en la página
-		await page.setContent(html, { waitUntil: 'domcontentloaded' })
+		// Establecer el contenido HTML en la página y esperar a que la red esté inactiva
+		await page.setContent(html, { waitUntil: 'networkidle0', timeout: 60000 }) // Aumentar tiempo de espera a 60s
 
 		// Generar el PDF
 		const pdfBuffer = await page.pdf({ format: 'A4' })
@@ -30,10 +32,19 @@ export async function POST(req: NextRequest) {
 
 		return pdfResponse
 	} catch (error) {
-		console.error('Error al generar el PDF:', error)
-		return NextResponse.json(
-			{ error: 'Error al generar el PDF' },
-			{ status: 500 }
-		)
+		// Manejo de errores específicos
+		if (error) {
+			console.error('Error: Timeout al generar el PDF.', error)
+			return NextResponse.json(
+				{ error: 'Timeout al generar el PDF. Intente nuevamente.' },
+				{ status: 500 }
+			)
+		} else {
+			console.error('Error al generar el PDF:', error)
+			return NextResponse.json(
+				{ error: 'Error al generar el PDF.' },
+				{ status: 500 }
+			)
+		}
 	}
 }

@@ -154,7 +154,9 @@ function RegisterData() {
 						maxLength={110}
 					/>
 
-					<Button name='Registrar' onClick={handleRegistrar} />
+					<Button name='Registrar' onClick={handleRegistrar}>
+						Registrar
+					</Button>
 				</div>
 			</div>
 		</>

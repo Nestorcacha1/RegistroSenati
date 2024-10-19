@@ -7,6 +7,7 @@ import Title from './Title'
 import UserFooter from './Table/UserFooter'
 import UserTable from '@/components/Table/UserTable'
 import { UserContext } from '@/context/UserContext'
+import Button from './Button'
 
 function Dashboard() {
 	const { data: session, status } = useSession()
@@ -57,20 +58,22 @@ function Dashboard() {
 	}
 
 	return (
-		<div className='lg:container mx-auto px-2'>
-			<div className='text-center'>
-				<Title name='Registro de Ingreso y Salida de Laptops de Estudiantes' />
-			</div>
-			<div className='text-center my-4'>
-				<CurrentDate />
-			</div>
-			<div className='flex flex-col md:flex-row justify-between items-center'>
-				<button className='md:w-auto py-2 px-4 mt-2 text-white bg-blue-500 hover:bg-blue-700 rounded mb-4 md:mb-8 ml-0 md:ml-5'>
-					<a href='/auth/registerdata'>Registrar</a>
-				</button>
-				<span className='w-full md:w-auto mr-0 md:mr-8 '>
-					<SearchDni />
-				</span>
+		<div className='lg:container mx-auto px-1'>
+			<div className='lg:container mx-auto px-1'>
+				<header className='text-center'>
+					<Title name='Registro de Ingreso y Salida de Laptops de Estudiantes' />
+				</header>
+				<section className='text-center justify-center flex my-2'>
+					<CurrentDate />
+				</section>
+				<section className='flex flex-col md:flex-row justify-between items-center'>
+					<Button name={'Registrar'}>
+						<a href='/auth/registerdata'>Registrar</a>
+					</Button>
+					<div className='w-full md:w-auto mr-0 md:mr-8'>
+						<SearchDni />
+					</div>
+				</section>
 			</div>
 
 			<section className='overflow-x-auto rounded-lg'>
