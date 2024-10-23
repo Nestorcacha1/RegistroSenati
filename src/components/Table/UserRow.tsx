@@ -19,10 +19,10 @@ const UserRow: React.FC<UserRowProps> = ({
 	onDelete,
 }) => {
 	return (
-		<tr className={user.dni == dni ? 'bg-green-400 font-semibold' : ''}>
+		<tr className={user.dni == dni ? 'bg-slate-300 shadow font-semibold' : ''}>
 			<td>{<Time time={user.createdAt} key={user.id} />}</td>
 			<td>
-				<UserExit id={user.id.toString()} />
+				{user && user.id ? <UserExit id={user.id.toString()} /> : 'Sin datos'}
 				{user.exit === true ? <Time time={user.exitTime} key={user.id} /> : ''}
 			</td>
 			<td>{user.nombre}</td>

@@ -17,8 +17,8 @@ function SelectCareer({ carrera, setCarrera }: props) {
 			<option value='Administración Industrial'>
 				Administración Industrial
 			</option>
-			<option value='Seguridad Industrial y Prevención de R.'>
-				Seguridad Industrial y Prevención de R.
+			<option value='Seguridad Ind. y Prevención de R.'>
+				Seguridad Ind. y Prevención de R.
 			</option>
 			<option value='Mecánico de Automotores Diesel'>
 				Mecánico de Automotores Diesel
@@ -28,9 +28,7 @@ function SelectCareer({ carrera, setCarrera }: props) {
 			</option>
 			<option value='Diseño Gráfico Digital'>Diseño Gráfico Digital</option>
 			<option value='Mecánico Automotriz'>Mecánico Automotriz</option>
-			<option value='Ingeniería de Software con I.A'>
-				Ingeniería de Software con I.A
-			</option>
+			<option value='Ing. de Software con I.A'>Ing. de Software con I.A</option>
 			<option value='Administración de Empresas'>
 				Administración de Empresas
 			</option>

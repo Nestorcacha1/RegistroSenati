@@ -7,7 +7,7 @@ interface TableHeaderProps {
 const TableHeader: React.FC<TableHeaderProps> = ({ isAuthenticated }) => {
 	return (
 		<thead>
-			<tr className='bg-sky-300'>
+			<tr className='bg-se-primary text-white'>
 				<th>Hora Ent.</th>
 				<th>Hora Sali.</th>
 				<th>Nombre</th>

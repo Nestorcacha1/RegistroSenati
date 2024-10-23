@@ -35,7 +35,7 @@ const UserTable: React.FC<UserTableProps> = ({
 					) : (
 						<tr>
 							<td colSpan={13} className='text-center text-red-500'>
-								No hay registros o error en la base de datos
+								No hay registros o error en el servidor
 							</td>
 						</tr>
 					)}

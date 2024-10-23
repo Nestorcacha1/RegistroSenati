@@ -4,8 +4,9 @@ import { NextResponse } from 'next/server'
 interface Params {
 	params: { dni: string }
 }
+
 export async function GET(request: Request, { params }: Params) {
-	const searchDni = await prisma.usuario.findFirst({
+	const searchDni = await prisma.usuario.findMany({
 		where: {
 			dni: params.dni,
 		},
@@ -13,9 +14,18 @@ export async function GET(request: Request, { params }: Params) {
 			Laptops: true,
 			Objetos: true,
 		},
+		orderBy: {
+			createdAt: 'desc',
+		},
+		take: 1,
 	})
-	if (!searchDni) {
-		return NextResponse.json({ message: searchDni }, { status: 404 })
+
+	if (searchDni.length === 0) {
+		return NextResponse.json(
+			{ message: 'No se encontró el usuario' },
+			{ status: 404 }
+		)
 	}
-	return NextResponse.json(searchDni)
+
+	return NextResponse.json(searchDni[0])
 }

@@ -65,11 +65,11 @@ export interface TimeEdit {
 	updatedAt: string
 }
 
-// export interface Admin {
-// 	id: number
-// 	email: string
-// 	password: string
-// 	nombre: string
-// 	apellido: string
-// 	isAdmin: boolean
-// }
+export interface UserFind {
+	nombre: string
+	apellido: string
+	dni: string
+	carrera: string
+	Laptops: { marca: string; color: string; numeroSerie: string }[]
+	Objetos: { nombre: string; descripcion: string }[]
+}

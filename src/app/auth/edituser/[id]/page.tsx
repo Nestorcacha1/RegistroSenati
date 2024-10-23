@@ -23,6 +23,7 @@ function EditPage({ user }: { user: User }) {
 	const [objeto, setObjeto] = useState<string>('')
 	const [descripcion, setDescripcion] = useState<string>('')
 	const [redirectTo, setRedirectTo] = useState(false)
+	const [loading, setLoading] = useState(false)
 
 	const { EditLaptop, EditObjeto, EditUser, users } = useContext(UserContext)
 
@@ -43,22 +44,25 @@ function EditPage({ user }: { user: User }) {
 	}, [id])
 
 	async function handleUpadateUser() {
-		EditUser(
-			{
-				nombre,
-				apellido,
-				dni,
-				carrera,
-			},
-			id
-		)
-		EditLaptop({ marca, color, numeroSerie }, id)
-		EditObjeto({ nombre: objeto, descripcion }, id)
-		setRedirectTo(true)
-		if (users) {
+		setLoading(true) // Iniciar el estado de carga
+		try {
+			await EditUser(
+				{
+					nombre,
+					apellido,
+					dni,
+					carrera,
+				},
+				id
+			)
+			await EditLaptop({ marca, color, numeroSerie }, id)
+			await EditObjeto({ nombre: objeto, descripcion }, id)
+			setRedirectTo(true)
 			toast.success('Usuario actualizado')
-		} else {
+		} catch (error) {
 			toast.error('No se pudo actualizar el usuario')
+		} finally {
+			setLoading(false) // Terminar el estado de carga
 		}
 	}
 
@@ -150,7 +154,7 @@ function EditPage({ user }: { user: User }) {
 					maxLength={110}
 				/>
 
-				<Button name='Actualizar' onClick={handleUpadateUser}>
+				<Button name='Actualizar' onClick={handleUpadateUser} loading={loading}>
 					Actualizar
 				</Button>
 			</div>

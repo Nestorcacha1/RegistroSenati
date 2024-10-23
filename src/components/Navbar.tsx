@@ -29,9 +29,10 @@ function Navbar() {
 
 			<button
 				onClick={Logout}
-				className='bg-slate-200 rounded-lg hover:bg-slate-300 mr-5'
+				className='bg-slate-200 rounded-lg hover:bg-slate-300 mr-5 p'
 				title='Salir'
 			>
+				<Link href={'/'} />
 				<SalirIcon />
 			</button>
 		</div>

@@ -5,8 +5,7 @@ import Input from '@/components/Input'
 import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
-import { error } from 'console'
-import { se } from 'date-fns/locale'
+import { User, UserFind, UserRegister } from '@/interface/type'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { useContext, useState } from 'react'
@@ -22,8 +21,11 @@ function RegisterData() {
 	const [numeroSerie, setNumeroSerie] = useState<string>('')
 	const [objeto, setObjeto] = useState<string>('')
 	const [descripcion, setDescripcion] = useState<string>('')
+	const [dniSearch, setDniSearch] = useState<string>('')
+
 	const [redirecTo, setRedirectTo] = useState(false)
-	const { AddUsers } = useContext(UserContext)
+	const { AddUsers, SearchDni } = useContext(UserContext)
+	const [loading, setLoading] = useState(false)
 
 	function limpiarCampos() {
 		setNombre('')
@@ -55,6 +57,7 @@ function RegisterData() {
 			toast.error('Complete todos los campos')
 			return
 		}
+		setLoading(true)
 		try {
 			await AddUsers({
 				nombre,
@@ -71,6 +74,43 @@ function RegisterData() {
 		} catch (error) {
 			toast.error('Error al registrar')
 			setRedirectTo(false)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	async function handleBuscar() {
+		if (dniSearch.length !== 8) {
+			toast.error('El DNI debe tener 8 dígitos para buscar')
+			return
+		}
+		try {
+			setLoading(true)
+			const userFind: UserFind | any = await SearchDni(dniSearch)
+
+			if (typeof userFind === 'string' || !userFind) {
+				toast.error('No se encontró el usuario o hubo un error en la búsqueda')
+				return
+			}
+
+			console.log(userFind)
+
+			// Si el usuario es encontrado, actualiza los campos con la información
+			setNombre(userFind.nombre)
+			setApellido(userFind.apellido)
+			setDni(userFind.dni)
+			setCarrera(userFind.carrera)
+			setMarca(userFind.Laptops[0]?.marca || '')
+			setColor(userFind.Laptops[0]?.color || '')
+			setNumeroSerie(userFind.Laptops[0]?.numeroSerie || '')
+			setObjeto(userFind.Objetos[0]?.nombre || '')
+			setDescripcion(userFind.Objetos[0]?.descripcion || '')
+
+			toast.success('Usuario encontrado y datos cargados')
+		} catch (error) {
+			toast.error('Error al buscar el usuario')
+		} finally {
+			setLoading(false)
 		}
 	}
 
@@ -80,12 +120,26 @@ function RegisterData() {
 
 	return (
 		<>
-			<div className='shadow-orange-300 bg-blue-100 rounded-lg p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-14'>
+			<div className='shadow-orange-300 bg-blue-100 mb-0 rounded-lg p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-14'>
 				<span>
 					<Link href='/' aria-label='Atrás'>
 						<Lefticon className='w-9' />
 					</Link>
 				</span>
+				<section className='flex flex-row gap-3'>
+					<input
+						type='search'
+						placeholder='Buscar por dni'
+						className='flex justify-center mt-4 p-2 w-18 h-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500'
+						required
+						value={dniSearch}
+						maxLength={8}
+						onChange={e => setDniSearch(e.target.value)}
+					/>
+					<Button onClick={handleBuscar} name='Buscar'>
+						Buscar
+					</Button>
+				</section>
 				<Title name='Registro de Usuarios y Laptop' />
 				<div className='flex flex-col space-y-2'>
 					<Input
@@ -154,7 +208,7 @@ function RegisterData() {
 						maxLength={110}
 					/>
 
-					<Button name='Registrar' onClick={handleRegistrar}>
+					<Button name='Registrar' onClick={handleRegistrar} loading={loading}>
 						Registrar
 					</Button>
 				</div>
