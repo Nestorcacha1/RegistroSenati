@@ -66,10 +66,8 @@ function Dashboard() {
 				<section className='text-center justify-center flex my-2'>
 					<CurrentDate />
 				</section>
-				<section className='flex flex-col md:flex-row justify-between items '>
-					<Button name={'Registrar'}>
-						<a href='/auth/registerdata'>Registrar</a>
-					</Button>
+				<section className='flex flex-col md:flex-row justify-between'>
+					<Button name={'Registrar'} href='/auth/registerdata'></Button>
 					<div className='w-full md:w-auto mr-0 md:mr-8 '>
 						<SearchDni />
 					</div>

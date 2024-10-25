@@ -5,7 +5,7 @@ import Input from '@/components/Input'
 import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
-import { User, UserFind, UserRegister } from '@/interface/type'
+import { UserFind } from '@/interface/type'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { useContext, useState } from 'react'
@@ -24,7 +24,7 @@ function RegisterData() {
 	const [dniSearch, setDniSearch] = useState<string>('')
 
 	const [redirecTo, setRedirectTo] = useState(false)
-	const { AddUsers, SearchDni } = useContext(UserContext)
+	const { AddUsers, SearchDniOne } = useContext(UserContext)
 	const [loading, setLoading] = useState(false)
 
 	function limpiarCampos() {
@@ -86,7 +86,7 @@ function RegisterData() {
 		}
 		try {
 			setLoading(true)
-			const userFind: UserFind | any = await SearchDni(dniSearch)
+			const userFind: UserFind | any = await SearchDniOne(dniSearch)
 
 			if (typeof userFind === 'string' || !userFind) {
 				toast.error('No se encontró el usuario o hubo un error en la búsqueda')
@@ -119,8 +119,20 @@ function RegisterData() {
 	}
 
 	return (
-		<>
-			<div className='shadow-orange-300 bg-blue-100 mb-0 rounded-lg p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-14'>
+		<div
+			style={{
+				backgroundImage: `url('/fondoRegister.jpg')`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundRepeat: 'no-repeat',
+				minHeight: '100vh',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				zIndex: 0,
+			}}
+		>
+			<div className='shadow-white z-10 shadow-2xl bg-transparent mb-2 rounded-lg border-4 border-blue-700 p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-2'>
 				<span>
 					<Link href='/' aria-label='Atrás'>
 						<Lefticon className='w-9' />
@@ -136,9 +148,7 @@ function RegisterData() {
 						maxLength={8}
 						onChange={e => setDniSearch(e.target.value)}
 					/>
-					<Button onClick={handleBuscar} name='Buscar'>
-						Buscar
-					</Button>
+					<Button onClick={handleBuscar} name='Buscar' />
 				</section>
 				<Title name='Registro de Usuarios y Laptop' />
 				<div className='flex flex-col space-y-2'>
@@ -213,7 +223,7 @@ function RegisterData() {
 					</Button>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 

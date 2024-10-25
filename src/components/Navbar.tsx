@@ -1,41 +1,49 @@
 import { signOut, useSession } from 'next-auth/react'
-import Link from 'next/link'
+import Button from './Button'
 import SalirIcon from './icon/ExitIcon'
 import UserIcon from './icon/UserIcon'
-import Button from './Button'
 
 function Navbar() {
 	const { data: session, status } = useSession()
 
-	async function Logout() {
-		await signOut({ redirect: true, callbackUrl: '/auth/login' })
+	const handleLogout = async () => {
+		try {
+			await signOut({
+				redirect: true,
+				callbackUrl: '/auth/login',
+			})
+		} catch (error) {
+			console.error('Error durante el logout:', error)
+		}
 	}
 
 	if (status === 'unauthenticated') {
 		return null
 	}
+
 	return (
-		<div className='mt-2 flex col-span-6 gap-5 justify-end font-bold py-2 text-lg mx-5'>
-			<Button name={''}>
-				<Link href={'/auth/perfil'} className='text-sm'>
+		<nav className='flex col-span-6 gap-5 justify-end font-bold py-2 text-lg mx-5'>
+			{/* Botón de Perfil */}
+			<Button href='/auth/perfil' name='Perfil'>
+				<div className='flex items-center gap-2 text-sm'>
 					<UserIcon className='w-6' />
-					Perfil
-				</Link>
+					<span>Perfil</span>
+				</div>
 			</Button>
 
-			<Button name={''}>
-				<Link href={'/auth/allregisters'}> Todos los Registros</Link>
+			{/* Botón de Registros */}
+			<Button href='/auth/allregisters' name='Registros'>
+				Todos los Registros
 			</Button>
 
-			<button
-				onClick={Logout}
-				className='bg-slate-200 rounded-lg hover:bg-slate-300 mr-5 p'
-				title='Salir'
-			>
-				<Link href={'/'} />
-				<SalirIcon />
-			</button>
-		</div>
+			{/* Botón de Salir */}
+			<Button onClick={handleLogout} name='Salir'>
+				<div className='flex items-center gap-2'>
+					<SalirIcon />
+					<span className='sr-only'>Salir</span>
+				</div>
+			</Button>
+		</nav>
 	)
 }
 

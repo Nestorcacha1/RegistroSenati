@@ -28,6 +28,7 @@ export const UserContext = createContext<{
 	EditLaptop: (user: LaptopUpdate, id: string) => Promise<void>
 	EditObjeto: (user: ObjetoUpdate, id: string) => Promise<void>
 	SearchDni: (dni: string) => Promise<User | String>
+	SearchDniOne: (dni: string) => Promise<User | String>
 	ExitUser: (id: string, dni: string) => Promise<TimeEdit>
 }>({
 	users: [],
@@ -46,6 +47,9 @@ export const UserContext = createContext<{
 	EditLaptop: async (user: LaptopUpdate, id: string) => {},
 	EditObjeto: async (user: ObjetoUpdate, id: string) => {},
 	SearchDni: async (dni: string): Promise<User | String> => {
+		return dni
+	},
+	SearchDniOne: async (dni: string): Promise<User | String> => {
 		return dni
 	},
 	ExitUser: async (id: string, dni: string) => {
@@ -169,6 +173,22 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	}
 
+	async function SearchDniOne(dni: string): Promise<User | String> {
+		try {
+			const response = await fetch(
+				`http://localhost:3000/api/user/search/${dni}`
+			)
+			const data = await response.json()
+			if (data.message === null) {
+				return data.message('Usuario no encontrado')
+			}
+			return data // Devolver el usuario encontrado
+		} catch (error) {
+			console.error(error)
+			return 'Error al buscar el usuario'
+		}
+	}
+
 	async function ExitUser(id: string, dni: string) {
 		const exitTime = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
 
@@ -208,6 +228,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 				EditLaptop,
 				EditObjeto,
 				SearchDni,
+				SearchDniOne,
 				ExitUser,
 				dni: dni || '',
 			}}

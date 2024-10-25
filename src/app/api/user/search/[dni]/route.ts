@@ -14,6 +14,10 @@ export async function GET(request: Request, { params }: Params) {
 			Laptops: true,
 			Objetos: true,
 		},
+		orderBy: {
+			createdAt: 'desc',
+		},
+		take: 1,
 	})
 
 	if (searchDni.length === 0) {

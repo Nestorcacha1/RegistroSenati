@@ -40,7 +40,7 @@ function AllRegister() {
 	}, [])
 
 	return (
-		<>
+		<div className='lg:container mx-auto px-1 bg-blue-400'>
 			<Title name='Historial de Ingreso y Salida de Laptops de Estudiantes' />
 			<header className='flex items-center justify-between p-2'>
 				<span className='w-10'>
@@ -53,14 +53,14 @@ function AllRegister() {
 				</span>
 			</header>
 
-			<main className='p-4'>
+			<div className='p-4 '>
 				{Object.keys(groupedUsers).length === 0 ? (
 					<p className='text-center text-red-500'>
 						No hay registros o error en la base de datos
 					</p>
 				) : (
 					Object.entries(groupedUsers).map(([date, users]) => (
-						<article key={date} className='mb-8'>
+						<article key={date} className='mb-8 bg-slate-200 rounded-md'>
 							<div className='flex justify-center mb-4'>
 								<PdfGenerate date={date} />
 							</div>
@@ -78,8 +78,8 @@ function AllRegister() {
 						</article>
 					))
 				)}
-			</main>
-		</>
+			</div>
+		</div>
 	)
 }
 

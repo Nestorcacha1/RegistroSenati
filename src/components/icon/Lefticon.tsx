@@ -15,7 +15,7 @@ function Lefticon({ className = 'w-6 h-6' }) {
 					clipRule='evenodd'
 				/>
 			</svg>
-			<h5 className='text-sm font-semibolds'>Atras</h5>
+			<h5 className='text-xs font-semibold'>Atras</h5>
 		</div>
 	)
 }
