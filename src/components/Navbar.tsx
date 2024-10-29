@@ -1,7 +1,9 @@
+'use client'
 import { signOut, useSession } from 'next-auth/react'
 import Button from './Button'
 import SalirIcon from './icon/ExitIcon'
 import UserIcon from './icon/UserIcon'
+import router from 'next/router'
 
 function Navbar() {
 	const { data: session, status } = useSession()
@@ -17,10 +19,9 @@ function Navbar() {
 		}
 	}
 
-	if (status === 'unauthenticated') {
-		return null
+	if (status !== 'authenticated') {
+		return null // No renderiza nada si no está autenticado o la autenticación está cargando
 	}
-
 	return (
 		<nav className='flex col-span-6 gap-5 justify-end font-bold py-2 text-lg mx-5'>
 			{/* Botón de Perfil */}

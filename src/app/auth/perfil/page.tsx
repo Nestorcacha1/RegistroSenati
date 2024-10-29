@@ -20,7 +20,7 @@ function Perfil() {
 						Mi Perfil
 					</h2>
 
-					<section className='flex flex-col items-center space-y-4'>
+					<section className='flex flex-col items-center space-y-4 '>
 						<span className='flex justify-center'>
 							<img
 								src={session?.user?.image ?? ''}

@@ -8,7 +8,8 @@ interface props {
 function SelectCareer({ carrera, setCarrera }: props) {
 	return (
 		<select
-			className='border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 mt-2 bg-slate-50'
+			className='border border-gray-300 p-2 rounded-md focus:ring-2 focus:ring-blue-400 
+					focus:border-blue-400 transition duration-300 ease-in-out shadow-sm focus:shadow-md  mt-2 bg-slate-50'
 			value={carrera}
 			onChange={e => setCarrera(e.target.value)}
 			required

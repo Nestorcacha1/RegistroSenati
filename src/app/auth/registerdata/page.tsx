@@ -121,7 +121,7 @@ function RegisterData() {
 	return (
 		<div
 			style={{
-				backgroundImage: `url('/fondoRegister.jpg')`,
+				backgroundImage: `url('/fondo2.avif')`,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
 				backgroundRepeat: 'no-repeat',

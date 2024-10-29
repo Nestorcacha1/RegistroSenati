@@ -42,8 +42,8 @@ function LoginPage() {
 	if (status === 'unauthenticated') {
 		return (
 			<div className='flex flex-col items-center justify-center min-h-screen bg-blue-300'>
-				<div className='flex flex-col items-center justify-center p-6 space-y-6 bg-white rounded-lg shadow-lg sm:w-3/4 md:w-1/2 lg:w-1/3'>
-					<h2 className='text-xl font-bold text-center text-gray-800 sm:text-2xl md:text-3xl'>
+				<div className='flex flex-col items-center justify-center p-6 space-y-6 bg-blue-800 rounded-lg shadow-lg sm:w-3/4 md:w-1/2 lg:w-1/3'>
+					<h2 className='text-xl font-bold text-center text-white sm:text-2xl md:text-3xl'>
 						Inicio De Sesión Del Administrador
 					</h2>
 
@@ -60,12 +60,12 @@ function LoginPage() {
 							height={24}
 							className='w-6 h-6'
 						/>
-						<span className='text-gray-700 font-medium group-hover:text-white'>
+						<span className='text-gray-700 font-medium group-hover:text-white hover:text-white'>
 							Sign in with Google
 						</span>
 					</button>
 
-					<span className='text-center text-sm text-black sm:text-base'>
+					<span className='text-center text-sm text-white sm:text-base'>
 						Inicia sesión con Google
 					</span>
 				</div>

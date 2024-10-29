@@ -73,7 +73,7 @@ function EditPage({ user }: { user: User }) {
 	return (
 		<div
 			style={{
-				backgroundImage: `url('/fondoRegister.jpg')`,
+				backgroundImage: `url('/fondo2.avif')`,
 				backgroundSize: 'cover',
 				backgroundPosition: 'center',
 				backgroundRepeat: 'no-repeat',
@@ -92,7 +92,7 @@ function EditPage({ user }: { user: User }) {
 				</span>
 				<Title name='Actualiza Tus Datos' />
 				<div className='flex flex-col space-y-1'>
-					<label className='font-semibold text-sm'>Nombre</label>
+					<label className='font-semibold text-sm text-white'>Nombre</label>
 					<Input
 						required={false}
 						type='text'
@@ -101,7 +101,7 @@ function EditPage({ user }: { user: User }) {
 						value={nombre}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>Apellido</label>
+					<label className='font-semibold text-sm text-white '>Apellido</label>
 					<Input
 						required={false}
 						type='text'
@@ -110,7 +110,7 @@ function EditPage({ user }: { user: User }) {
 						value={apellido}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>DNI</label>
+					<label className='font-semibold text-sm text-white'>DNI</label>
 					<Input
 						required={false}
 						type='text'
@@ -119,9 +119,9 @@ function EditPage({ user }: { user: User }) {
 						onChange={e => setDni(e.target.value)}
 						value={dni}
 					/>
-					<label className='font-semibold text-sm'>Carrera</label>
+					<label className='font-semibold text-sm text-white'>Carrera</label>
 					<SelectCareer carrera={carrera} setCarrera={setCarrera} />
-					<label className='font-semibold text-sm'>Marca</label>
+					<label className='font-semibold text-sm text-white'>Marca</label>
 					<Input
 						required={false}
 						type='text'
@@ -130,7 +130,7 @@ function EditPage({ user }: { user: User }) {
 						value={marca}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>Color</label>
+					<label className='font-semibold text-sm text-white'>Color</label>
 					<Input
 						required={false}
 						type='text'
@@ -139,7 +139,9 @@ function EditPage({ user }: { user: User }) {
 						value={color}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>Número de Serie</label>
+					<label className='font-semibold text-sm text-white'>
+						Número de Serie
+					</label>
 					<Input
 						required={false}
 						type='text'
@@ -148,7 +150,9 @@ function EditPage({ user }: { user: User }) {
 						value={numeroSerie}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>Nombre Objeto</label>
+					<label className='font-semibold text-sm text-white'>
+						Nombre Objeto
+					</label>
 					<Input
 						required={false}
 						type='text'
@@ -157,7 +161,9 @@ function EditPage({ user }: { user: User }) {
 						value={objeto}
 						maxLength={110}
 					/>
-					<label className='font-semibold text-sm'>Descripción</label>
+					<label className='font-semibold text-sm text-white'>
+						Descripción
+					</label>
 					<Input
 						required={false}
 						type='text'

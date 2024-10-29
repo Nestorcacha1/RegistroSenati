@@ -55,28 +55,38 @@ function AllRegister() {
 
 			<div className='p-4 '>
 				{Object.keys(groupedUsers).length === 0 ? (
-					<p className='text-center text-red-500'>
+					<p className='text-center text-red-500 bg-blue-300'>
 						No hay registros o error en la base de datos
 					</p>
 				) : (
-					Object.entries(groupedUsers).map(([date, users]) => (
-						<article key={date} className='mb-8 bg-slate-200 rounded-md'>
-							<div className='flex justify-center mb-4'>
-								<PdfGenerate date={date} />
-							</div>
+					Object.entries(groupedUsers)
+						.sort((a, b) => {
+							const dateA = new Date(
+								a[0].split('/').reverse().join('-')
+							).getTime()
+							const dateB = new Date(
+								b[0].split('/').reverse().join('-')
+							).getTime()
+							return dateB - dateA
+						})
+						.map(([date, users]) => (
+							<article key={date} className='mb-8 bg-slate-200 rounded-md'>
+								<div className='flex justify-center mb-4'>
+									<PdfGenerate date={date} />
+								</div>
 
-							<div
-								id={`table-${date}`}
-								className='overflow-x-auto rounded-lg border border-gray-300 shadow-lg'
-							>
-								<UserTableAll
-									users={groupedUsers[date] as User[]}
-									dni={dni.toString()}
-									date={date}
-								/>
-							</div>
-						</article>
-					))
+								<div
+									id={`table-${date}`}
+									className='overflow-x-auto rounded-lg border border-gray-300 shadow-lg'
+								>
+									<UserTableAll
+										users={groupedUsers[date] as User[]}
+										dni={dni.toString()}
+										date={date}
+									/>
+								</div>
+							</article>
+						))
 				)}
 			</div>
 		</div>

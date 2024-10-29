@@ -56,6 +56,14 @@ export async function GET(request: Request) {
 			take: limit, // Traer solo 5 resultados por página
 		})
 
+		// Modificar el DNI para mostrar solo los primeros 5 dígitos
+		// Mostrar solo los primeros 5 dígitos y agregar puntos si el dni tiene más de 5 dígitos
+		const usuariosConDniCortado = usuarios.map(usuario => ({
+			...usuario,
+			dni:
+				usuario.dni.length > 5 ? usuario.dni.slice(0, 5) + '...' : usuario.dni,
+		}))
+
 		// Generar los enlaces de paginación
 		const baseUrl = `${request.url.split('?')[0]}?`
 		const nextPage =
@@ -75,7 +83,7 @@ export async function GET(request: Request) {
 			nextNumber: nextNumber, // Número de la página siguiente
 			previousNumber: previousNumber, // Número de la página anterior
 			previous: previousPage, // URL de la página anterior
-			results: usuarios, // Los datos de la página actual
+			results: usuariosConDniCortado, // Los datos de la página actual
 		})
 	} catch (error) {
 		return NextResponse.json(
