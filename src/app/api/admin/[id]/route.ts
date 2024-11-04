@@ -2,22 +2,31 @@ import { NextResponse } from 'next/server'
 import prisma from '../../../../libs/db'
 
 interface Params {
-	params: { id: String }
+	params: { id: string }
 }
+
 export async function DELETE(request: Request, { params }: Params) {
 	try {
-		const DeleteAdmin = await prisma.admin.delete({
+		const id = Number(params.id)
+		if (isNaN(id)) {
+			return NextResponse.json({ message: 'Invalid ID' }, { status: 400 })
+		}
+
+		const deleteAdmin = await prisma.admin.delete({
 			where: {
-				id: Number(params.id),
+				id: id,
 			},
 		})
-		if (!DeleteAdmin) {
-			return NextResponse.json({
-				message: 'Admin not found',
-			})
+
+		if (!deleteAdmin) {
+			return NextResponse.json({ message: 'Admin not found' }, { status: 404 })
 		}
-		return NextResponse.json(DeleteAdmin)
+
+		return NextResponse.json(deleteAdmin)
 	} catch (error) {
-		NextResponse.json(error)
+		return NextResponse.json(
+			{ message: 'Internal Server Error', error },
+			{ status: 500 }
+		)
 	}
 }
