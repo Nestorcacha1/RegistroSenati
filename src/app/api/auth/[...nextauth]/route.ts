@@ -1,10 +1,10 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const authOptions = {
+const authOptions: NextAuthOptions = {
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -16,7 +16,7 @@ const authOptions = {
 			session.user.id = token.sub as string
 			return session
 		},
-		async jwt({ token, user }) {
+		async jwt({ token, user }: { token: any; user?: any }) {
 			if (user) {
 				const fetchedUser = await prisma.admin.findUnique({
 					where: { email: user.email as string },
