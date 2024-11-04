@@ -25,7 +25,6 @@ const handler = NextAuth({
 						data: {
 							email: user.email as string,
 							nombre: user.name?.split(' ')[0] || '',
-							isAdmin: true,
 							apellido: user.name?.split(' ')[1] || '',
 						} as any,
 					})
