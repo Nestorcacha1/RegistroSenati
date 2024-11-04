@@ -40,26 +40,26 @@ const handler = NextAuth({
 	},
 })
 
-export async function isAdmin() {
-	const session = (await getServerSession(handler)) as {
-		user?: { email?: string }
-	}
+// export async function isAdmin() {
+// 	const session = (await getServerSession(handler)) as {
+// 		user?: { email?: string }
+// 	}
 
-	const userEmail = session?.user?.email
+// 	const userEmail = session?.user?.email
 
-	if (!userEmail) {
-		return false
-	}
+// 	if (!userEmail) {
+// 		return false
+// 	}
 
-	const userInfo = await prisma.admin.findUnique({
-		where: { email: userEmail },
-	})
+// 	const userInfo = await prisma.admin.findUnique({
+// 		where: { email: userEmail },
+// 	})
 
-	if (!userInfo) {
-		return false
-	}
+// 	if (!userInfo) {
+// 		return false
+// 	}
 
-	// Verificar si el usuario es administrador
-	return userInfo.isAdmin
-}
-export { handler as GET, handler as POST }
+// 	// Verificar si el usuario es administrador
+// 	return userInfo.isAdmin
+// }
+// export { handler as GET, handler as POST }
