@@ -10,7 +10,7 @@ function LoginPage() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
 	const searchParams = useSearchParams()
-	const callbackUrl = searchParams.get('callbackUrl') || '/'
+	const callbackUrl = '/'
 
 	useEffect(() => {
 		if (status === 'authenticated') {
