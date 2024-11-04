@@ -9,7 +9,7 @@ import DownIcon from '@/components/icon/DownIcon'
 function LoginPage() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
-	const searchParams = useSearchParams()
+
 	const callbackUrl = '/'
 
 	useEffect(() => {

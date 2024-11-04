@@ -62,4 +62,4 @@ const handler = NextAuth({
 // 	// Verificar si el usuario es administrador
 // 	return userInfo.isAdmin
 // }
-// export { handler as GET, handler as POST }
+export { handler as GET, handler as POST }
