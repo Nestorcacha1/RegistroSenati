@@ -3,9 +3,6 @@ import prisma from '../../../../libs/db'
 interface Params {
 	params: { id: String }
 }
-interface Paramss {
-	params: { dni: string }
-}
 
 export async function GET(request: Request, { params }: Params) {
 	try {
