@@ -16,7 +16,7 @@ const authOptions = {
 			session.user.id = token.sub as string
 			return session
 		},
-		async jwt({ token, user }: { token: any; user?: any }) {
+		async jwt({ token, user }) {
 			if (user) {
 				const fetchedUser = await prisma.admin.findUnique({
 					where: { email: user.email as string },
