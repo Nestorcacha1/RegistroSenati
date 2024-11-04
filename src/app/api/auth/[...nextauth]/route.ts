@@ -16,7 +16,7 @@ const authOptions = {
 			session.user.id = token.sub as string
 			return session
 		},
-		async jwt({ token, user }: { token: any; user: any }) {
+		async jwt({ token, user }: { token: any; user?: any }) {
 			if (user) {
 				const fetchedUser = await prisma.admin.findUnique({
 					where: { email: user.email as string },
@@ -43,6 +43,10 @@ const authOptions = {
 
 export { authOptions }
 
-export default function handler({ req, res }: any) {
+export async function GET(req: any, res: any) {
+	return NextAuth(req, res, authOptions)
+}
+
+export async function POST(req: any, res: any) {
 	return NextAuth(req, res, authOptions)
 }
