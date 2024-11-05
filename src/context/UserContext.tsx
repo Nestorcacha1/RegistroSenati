@@ -69,7 +69,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 	async function LoadUsersPaginated(page: number): Promise<void> {
 		try {
-			const response = await fetch(`/api/user?filterByTime&page=${page}`)
+			const response = await fetch(
+				`${BASE_URL}/api/user?filterByTime&page=${page}`
+			)
 			const data = await response.json()
 			console.log(data)
 			setUsers(data.results)
@@ -87,7 +89,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	// Función para cargar usuarios filtrados por horas con paginación
 	async function LoadUsersTotal() {
 		try {
-			const response = await fetch(`/api/user/total`)
+			const response = await fetch(`${BASE_URL}/api/user/total`)
 			const data = await response.json()
 			console.log(data)
 			setUsers(data.results)
@@ -98,7 +100,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 	async function AddUsers(user: UserRegister): Promise<void> {
 		try {
-			const response = await fetch('http://localhost:3000/api/user', {
+			const response = await fetch(`${BASE_URL}/api/user`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -117,7 +119,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function EditUser(user: UserUpdate, id: string) {
-		const response = await fetch(`http://localhost:3000/api/user/${id}`, {
+		const response = await fetch(`${BASE_URL}/api/user/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -129,7 +131,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function EditLaptop(user: LaptopUpdate, id: string) {
-		const response = await fetch(`http://localhost:3000/api/laptop/${id}`, {
+		const response = await fetch(`${BASE_URL}/api/laptop/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -141,7 +143,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function EditObjeto(user: ObjetoUpdate, id: string) {
-		const response = await fetch(`http://localhost:3000/api/objeto/${id}`, {
+		const response = await fetch(`${BASE_URL}/api/objeto/${id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -153,14 +155,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	}
 
 	async function DeleteUser(id: string) {
-		await fetch(`/api/user/${id}`, {
+		await fetch(`${BASE_URL}/api/user/${id}`, {
 			method: 'DELETE',
 		})
 	}
 
 	async function SearchDni(dni: string): Promise<User | String> {
 		try {
-			const response = await fetch(`http://localhost:3000/api/user/dni/${dni}`)
+			const response = await fetch(`${BASE_URL}/api/user/dni/${dni}`)
 			const data = await response.json()
 			if (data.message === null) {
 				return data.message('Usuario no encontrado')
@@ -175,9 +177,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
 	async function SearchDniOne(dni: string): Promise<User | String> {
 		try {
-			const response = await fetch(
-				`http://localhost:3000/api/user/search/${dni}`
-			)
+			const response = await fetch(`${BASE_URL}/api/user/search/${dni}`)
 			const data = await response.json()
 			if (data.message === null) {
 				return data.message('Usuario no encontrado')
@@ -192,7 +192,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 	async function ExitUser(id: string, dni: string) {
 		const exitTime = new Date().toISOString() // Obtener la hora actual en formato ISO 8601
 
-		const response = await fetch(`http://localhost:3000/api/user/${id}`, {
+		const response = await fetch(`${BASE_URL}/api/user/${id}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
