@@ -11,9 +11,9 @@ import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-function EditPage({ user }: { user: User }) {
+function EditPage() {
 	const { id } = useParams<{ id: string }>()
-	const [nombre, setNombre] = useState<string>(user?.nombre || '')
+	const [nombre, setNombre] = useState<string>('')
 	const [apellido, setApellido] = useState<string>('')
 	const [dni, setDni] = useState<string>('')
 	const [carrera, setCarrera] = useState<string>('')

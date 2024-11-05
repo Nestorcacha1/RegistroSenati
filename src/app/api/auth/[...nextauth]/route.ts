@@ -1,7 +1,10 @@
-import prisma from '@/libs/db'
-import NextAuth, { getServerSession } from 'next-auth/next'
+import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-const handler = NextAuth({
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+const authOptions = {
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -11,10 +14,9 @@ const handler = NextAuth({
 	callbacks: {
 		async session({ session, token }: { session: any; token: any }) {
 			session.user.id = token.sub as string
-
 			return session
 		},
-		async jwt({ token, user }) {
+		async jwt({ token, user }: { token: any; user?: any }) {
 			if (user) {
 				const fetchedUser = await prisma.admin.findUnique({
 					where: { email: user.email as string },
@@ -27,39 +29,18 @@ const handler = NextAuth({
 							nombre: user.name?.split(' ')[0] || '',
 							isAdmin: false,
 							apellido: user.name?.split(' ')[1] || '',
-						} as any,
+						},
 					})
 					token.sub = newUser.id.toString()
 				} else {
 					token.sub = fetchedUser.id.toString()
 				}
 			}
-
 			return token
 		},
 	},
-})
-
-export async function isAdmin() {
-	const session = (await getServerSession(handler)) as {
-		user?: { email?: string }
-	}
-
-	const userEmail = session?.user?.email
-
-	if (!userEmail) {
-		return false
-	}
-
-	const userInfo = await prisma.admin.findUnique({
-		where: { email: userEmail },
-	})
-
-	if (!userInfo) {
-		return false
-	}
-
-	// Verificar si el usuario es administrador
-	return userInfo.isAdmin
 }
+
+const handler = NextAuth(authOptions)
+
 export { handler as GET, handler as POST }
