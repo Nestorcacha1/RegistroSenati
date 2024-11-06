@@ -9,8 +9,8 @@ import DownIcon from '@/components/icon/DownIcon'
 function LoginPage() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
-
-	const callbackUrl = '/'
+	const searchParams = useSearchParams()
+	const callbackUrl = searchParams.get('callbackUrl') || '/'
 
 	useEffect(() => {
 		if (status === 'authenticated') {
