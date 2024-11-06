@@ -6,6 +6,7 @@ import SelectCareer from '@/components/SelectCareer'
 import Title from '@/components/Title'
 import { UserContext } from '@/context/UserContext'
 import { User } from '@/interface/type'
+import BASE_URL from '@/libs/baseUrl'
 import Link from 'next/link'
 import { redirect, useParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
@@ -28,7 +29,7 @@ function EditPage() {
 	const { EditLaptop, EditObjeto, EditUser, users } = useContext(UserContext)
 
 	useEffect(() => {
-		fetch(`http://localhost:3000/api/user/${id}`)
+		fetch(`${BASE_URL}/api/user/${id}`)
 			.then(response => response.json())
 			.then(data => {
 				setNombre(data.nombre)
