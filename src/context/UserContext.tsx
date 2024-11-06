@@ -9,6 +9,7 @@ import {
 	UserUpdate,
 	TimeEdit,
 } from '@/interface/type'
+import BASE_URL from '@/libs/baseUrl'
 import { createContext, useState } from 'react'
 
 export const UserContext = createContext<{
