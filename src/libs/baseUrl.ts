@@ -1,3 +1,3 @@
-const BASE_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-
+const BASE_URL = process.env.BASE_URL
+console.log('BASE_URL:', BASE_URL)
 export default BASE_URL
