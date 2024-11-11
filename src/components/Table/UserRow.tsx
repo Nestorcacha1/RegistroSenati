@@ -28,7 +28,7 @@ const UserRow: React.FC<UserRowProps> = ({
 			<td>{user.nombre}</td>
 			<td>{user.apellido}</td>
 			<td>{user.dni}</td>
-			<td>{user.carrera}</td>
+			<td className='text-sm'>{user.carrera}</td>
 			{user.Laptops &&
 				user.Laptops.map((laptop: any) => (
 					<React.Fragment key={laptop.id}>

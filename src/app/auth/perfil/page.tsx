@@ -8,9 +8,9 @@ function Perfil() {
 	const { data: session } = useSession()
 
 	return (
-		<div>
-			<div className='mt-4 ml-5 w-10 bg-slate-400 rounded-md'>
-				<Link href={'/'}>
+		<div className='bg-blue-400'>
+			<div className='absolute top-4 left-4 w-12 text-white p-1'>
+				<Link href='/'>
 					<Lefticon className='w-9' />
 				</Link>
 			</div>

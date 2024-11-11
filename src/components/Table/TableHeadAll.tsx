@@ -4,8 +4,8 @@ function UserHeadAll() {
 	return (
 		<thead>
 			<tr className='bg-se-primary p-1 text-white'>
-				<th>Hora Ent.</th>
-				<th>Hora Sali.</th>
+				<th>Hora Entrada</th>
+				<th>Hora Salida</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>DNI</th>

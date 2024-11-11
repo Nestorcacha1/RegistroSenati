@@ -133,12 +133,12 @@ function RegisterData() {
 			}}
 		>
 			<div className='shadow-white z-10 shadow-2xl bg-transparent mb-2 rounded-lg border-4 border-blue-700 p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-2'>
-				<span>
+				<span className='text-white justify-between'>
 					<Link href='/' aria-label='Atrás'>
 						<Lefticon className='w-9' />
 					</Link>
 				</span>
-				<section className='flex flex-row gap-3'>
+				<section className='flex flex-row gap-3 justify-between'>
 					<input
 						type='search'
 						placeholder='Buscar por dni'
@@ -149,6 +149,10 @@ function RegisterData() {
 						onChange={e => setDniSearch(e.target.value)}
 					/>
 					<Button onClick={handleBuscar} name='Buscar' />
+					<p className='text-sm text-yellow-200 mt-3 animate-pulse font-mono'>
+						⚠️Nota: Si el usuario ya existe, solo busque por DNI. Si no existe,
+						llene todos los campos.
+					</p>
 				</section>
 				<Title name='Registro de Usuarios y Laptop' />
 				<div className='flex flex-col space-y-2'>

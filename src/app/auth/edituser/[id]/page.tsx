@@ -86,7 +86,7 @@ function EditPage() {
 			}}
 		>
 			<div className='shadow-white z-10 shadow-2xl bg-transparent mb-2 rounded-lg border-4 border-blue-700 p-6 space-y-4 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 h-auto mx-auto mt-2'>
-				<span className='w-10'>
+				<span className='w-10 text-white'>
 					<Link href='/' aria-label='Atrás'>
 						<Lefticon className='w-9' />
 					</Link>
