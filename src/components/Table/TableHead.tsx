@@ -8,8 +8,8 @@ const TableHeader: React.FC<TableHeaderProps> = ({ isAuthenticated }) => {
 	return (
 		<thead>
 			<tr className='bg-se-primary text-white'>
-				<th>Hora Ent.</th>
-				<th>Hora Sali.</th>
+				<th>Hora Entrada</th>
+				<th>Hora Salida</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>DNI</th>
